@@ -78,9 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
 						TextButton(
 							child: const Text("Test button"),
 							onPressed: () async {
-								Listing l = Listing (
-
-								);
+								await getListingsByUser("b95261fa-c289-499d-9f71-4fa6d8f5bce0");
 							}
 						),
           ],
