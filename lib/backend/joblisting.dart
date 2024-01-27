@@ -1,65 +1,55 @@
-
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 final supabase = Supabase.instance.client;
 
-class Message {
+class Listing {
 	final String id;
-	final String user_id;
-	final String rec_id;
+	final String title;
 	final String content;
+	final String owner_id;
+	final String location;
+	final int hours;
 	final DateTime created_at;
-	final bool mine;
 
-	Message({
+	Listing({
 		required this.id,
-		required this.user_id,
+		required this.owner_id,
 		required this.content,
 		required this.created_at,
-		required this.mine,
+		required this.location,
+		required this.hours,
+		required this.title
 	});
 	
-	Message.fromJSON(Map<String, dynamic> d, String myId) :
+	Listing.fromJSON(Map<String, dynamic> d) :
 		id = d["id"],
-		user_id = d["user_id"],
+		owner_id = d["owner_id"],
 		content = d["content"],
 		created_at = DateTime.parse(d["created_at"]),
-		mine = d["sender_id"] == myId;
+		location = d["location"],
+		hours = d["hours"],
+		title = d["title"]
+		;
 
 	Map<String, dynamic> toJSON() {
 		return {
 			"id": id,
-			"user_id": user_id,
+			"owner_id": owner_id,
 			"content": content,
 			"created_at": created_at,
+			"title": title,
+			"location": location,
+			"hours": hours,
 		};
+	}
+
+	Future<void> add() async {
+		await supabase.from("joblistings").insert(toJSON());
 	}
 }
 
-Future<void> send({required String to, required String contents}) async {
-	await supabase.from("joblistings").insert({
-		"user_id":	to,
-		"content": contents,
-	});
-}
-
-Future<List<Joblisting>> getAllJoblistings() async {
-	print("Supabasing messages");
-	var data = await supabase.from("joblistings").select<List<Map<String, dynamic>>>();
-	print("JobListings are: $data");
-	List<Message> msgs = [];
-	for (Map<String, dynamic> json in data)
-		msgs.add(Message.fromJSON(json, supabase.auth.currentUser!.id));
-	return msgs;
-}
-
-Future<List<Message>> getMessagesTo(String user_id, String my_id) async {
-	List<Joblisting> data = await getAllJoblistings();
-	List<Joblisting> msgs = [];
-	for (Joblisting m in data)
-		if (m._id == my_id || m.sender_id == user_id)
-		msgs.add(m);
-	return msgs;
-}class Joblisting{
-  final
+Future<List<Listing>> getListingByUser(String uid) async {
+	List<Map<String, dynamic>> data = await supabase.from("joblistings").select('*').eq("owner_id", uid);
+	print(data);
+	return [];
 }

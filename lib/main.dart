@@ -4,6 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flacktest/pages/signup.dart';
 import 'package:flacktest/pages/signin.dart';
 
+import 'package:flacktest/backend/joblisting.dart';
+
 void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
 
@@ -72,7 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
 									MaterialPageRoute(builder: (context) => SigninPage())
 								);
 							}
-						)
+						),
+						TextButton(
+							child: const Text("Test button"),
+							onPressed: () async {
+							}
+						),
           ],
         ),
       ),
