@@ -1,3 +1,5 @@
+import 'package:flacktest/pages/navbar.dart';
+import 'package:flacktest/pages/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -6,6 +8,8 @@ import 'package:flacktest/pages/signin.dart';
 
 import 'package:flacktest/backend/joblisting.dart';
 import 'package:flacktest/backend/application.dart';
+
+final supabase = Supabase.instance.client;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,72 +51,35 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    super.initState();
+    _redirect();
+  }
+
+  Future<void> _redirect() async {
+    await Future.delayed(Duration.zero);
+    final session = supabase.auth.currentSession;
+    if (session == null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute<void>(
+              builder: (BuildContext context) => const OnboardingPage()),
+          (_) => false);
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute<void>(
+              builder: (BuildContext context) => const MainScreenNav()),
+          (_) => false);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            const Text("Welcome to JobJet", style: TextStyle(fontSize: 25)),
-            Column(
-              children: [
-                SizedBox(
-                  width: 200,
-                  height: 42,
-                  child: TextButton(
-                      child: const Text("Sign up",
-                          style: const TextStyle(color: Colors.white)),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                              Colors.lightBlue)),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignupPage()),
-                        );
-                      }),
-                ),
-                SizedBox(height: 10),
-                SizedBox(
-                  width: 200,
-                  height: 42,
-                  child: TextButton(
-                      child: const Text("Sign in",
-                          style: const TextStyle(color: Colors.white)),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                              Colors.lightBlue)),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SigninPage()));
-                      }),
-                ),
-                SizedBox(height: 10),
-                SizedBox(
-                  width: 200,
-                  height: 42,
-                  child: TextButton(
-                      child: const Text("Test button",
-                          style: const TextStyle(color: Colors.white)),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                              Colors.lightBlue)),
-                      onPressed: () async {
-                        await getListingsByUser(
-                            "b95261fa-c289-499d-9f71-4fa6d8f5bce0");
-                      }),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+      body: SafeArea(child: Center(child: CircularProgressIndicator())),
     );
   }
 }
