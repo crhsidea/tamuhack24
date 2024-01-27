@@ -30,6 +30,7 @@ class SignupPageState extends State<SignupPage> {
 			body: Center(
 				child: Column(
 					children: [
+						Image(image: AssetImage("images/rocket_launch.gif")),
 						const Text("Email"),
 						Padding(
 							padding: EdgeInsets.all(16.0),
