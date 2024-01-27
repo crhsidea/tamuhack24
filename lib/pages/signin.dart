@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 final supabase = Supabase.instance.client;
 
-class SignupPage extends StatefulWidget {
+class SigninPage extends StatefulWidget {
 
 	@override
-	State<SignupPage> createState() => SignupPageState();
+	State<SigninPage> createState() => SigninPageState();
 }
 
-class SignupPageState extends State<SignupPage> {
+class SigninPageState extends State<SigninPage> {
 
 	final emailController = TextEditingController();
 	final passwordController = TextEditingController();
@@ -25,7 +25,7 @@ class SignupPageState extends State<SignupPage> {
 		return Scaffold(
 			appBar: AppBar(
 				backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-				title: Text("Signup for JobJet"),
+				title: Text("Sign in JobJet"),
 			),
 			body: Center(
 				child: Column(
@@ -50,28 +50,11 @@ class SignupPageState extends State<SignupPage> {
 								}
 							),
 						),
-						RichText(
-							text: TextSpan(
-								children: [
-									WidgetSpan(
-										child: Icon(
-											passOk ? Icons.check : Icons.sentiment_dissatisfied,
-											size: 14,
-											color: passOk ? Colors.green : Colors.red,
-										)
-									),
-									TextSpan(
-										text: passOk ? "Your password has at least 6 characters" : "Your password must be 6 or more characters long",
-										style: TextStyle(color: passOk ? Colors.green : Colors.red),
-									)
-								]
-							)
-						),
 						TextButton(
 							child: const Text("Get started"),
 							onPressed: () async {
 								try {
-									final AuthResponse res = await supabase.auth.signUp(
+									final AuthResponse res = await supabase.auth.signInWithPassword(
 										email: emailController.text,
 										password: passwordController.text,
 									);
@@ -89,7 +72,7 @@ class SignupPageState extends State<SignupPage> {
 												content: SingleChildScrollView(
 													child: ListBody(
 														children: <Widget>[
-															Text('There was an error signing you up:'),
+															Text('There was an error signing you in:'),
 															Text(e.message),
 														],
 													),
