@@ -9,9 +9,8 @@ import 'package:flacktest/pages/signin.dart';
 import 'package:flacktest/backend/joblisting.dart';
 import 'package:flacktest/backend/application.dart';
 
-final supabase = Supabase.instance.client;
-
 import 'package:flacktest/pages/jobform.dart';
+final supabase = Supabase.instance.client;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
