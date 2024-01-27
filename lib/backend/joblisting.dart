@@ -49,17 +49,6 @@ class Listing {
 		};
 	}
 
-  Map<String, dynamic> toJSON() {
-    return {
-      "id": id,
-      "owner_id": owner_id,
-      "content": content,
-      "created_at": created_at,
-      "title": title,
-      "location": location,
-      "hours": hours,
-    };
-  }
 }
 
 Future<void> addListing({
