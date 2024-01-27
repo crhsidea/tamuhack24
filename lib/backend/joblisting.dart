@@ -43,11 +43,25 @@ class Listing {
 		};
 	}
 
-	Future<void> add() async {
-		await supabase.from("joblistings").insert(toJSON());
-	}
 }
 
+Future<void> addListing({
+	required String title,
+	required String content,
+	required String owner_id,
+	required String location,
+	required int hours,
+	required DateTime created_at
+}) async {
+	await supabase.from("joblistings").insert({
+		"title" : title,
+		"content" : content,
+		"owner_id" : owner_id,
+		"location" : location,
+		"hours" : hours,
+		"created_at" : created_at
+	});
+}
 Future<List<Listing>> getListingByUser(String uid) async {
 	List<Map<String, dynamic>> data = await supabase.from("joblistings").select('*').eq("owner_id", uid);
 	print(data);
