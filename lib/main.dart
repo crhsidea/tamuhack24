@@ -5,6 +5,7 @@ import 'package:flacktest/pages/signup.dart';
 import 'package:flacktest/pages/signin.dart';
 
 import 'package:flacktest/backend/joblisting.dart';
+import 'package:flacktest/backend/application.dart';
 
 void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
@@ -78,9 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
 						TextButton(
 							child: const Text("Test button"),
 							onPressed: () async {
-								Listing l = Listing (
-
-								);
+								print(await getApplicationsByListing("ccb2194d-b12d-4349-acc7-7933d3328971"));
 							}
 						),
           ],
