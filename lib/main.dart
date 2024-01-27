@@ -11,6 +11,7 @@ import 'package:flacktest/backend/application.dart';
 
 final supabase = Supabase.instance.client;
 
+import 'package:flacktest/pages/jobform.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
