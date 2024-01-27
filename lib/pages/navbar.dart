@@ -5,8 +5,8 @@ import 'package:flacktest/pages/navscreens/profile.dart';
 import 'package:flacktest/pages/navscreens/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+//import 'package:flutter/src/widgets/container.dart';
+//import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -61,43 +61,36 @@ class _MainScreenNavState extends State<MainScreenNav> {
 
 List<Widget> _buildScreens() {
   return [
-    ApplicationsPage(),
     HomePage(),
+    ApplicationsPage(),
     ListingsPage(),
     ProfilePage(),
-    SearchPage()
   ];
 }
 
 List<PersistentBottomNavBarItem> _navBarsItems() {
   return [
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.home),
-      title: ("Applications"),
-      activeColorPrimary: CupertinoColors.activeBlue,
-      inactiveColorPrimary: CupertinoColors.systemGrey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.settings),
+      icon: Icon(Icons.home),
       title: ("Home"),
+      //activeColorPrimary: CupertinoColors.activeBlue,
+      //inactiveColorPrimary: CupertinoColors.systemGrey,
+    ),
+    PersistentBottomNavBarItem(
+      icon: Icon(Icons.edit),
+      title: ("Apps"),
       activeColorPrimary: CupertinoColors.activeBlue,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.settings),
+      icon: Icon(Icons.checklist),
       title: ("Listings"),
       activeColorPrimary: CupertinoColors.activeBlue,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.settings),
+      icon: Icon(Icons.account_circle),
       title: ("Profile"),
-      activeColorPrimary: CupertinoColors.activeBlue,
-      inactiveColorPrimary: CupertinoColors.systemGrey,
-    ),
-    PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.settings),
-      title: ("Search"),
       activeColorPrimary: CupertinoColors.activeBlue,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
