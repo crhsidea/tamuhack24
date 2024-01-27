@@ -5,6 +5,7 @@ import 'package:flacktest/pages/signup.dart';
 import 'package:flacktest/pages/signin.dart';
 
 import 'package:flacktest/backend/joblisting.dart';
+import 'package:flacktest/backend/application.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
