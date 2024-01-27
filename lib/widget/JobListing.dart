@@ -3,6 +3,7 @@
 //
 import 'package:flutter/material.dart';
 import 'package:flacktest/backend/joblisting.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 final supabase = Supabase.instance.client;
 
 class JobListing extends StatefulWidget{
