@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:flacktest/pages/signup.dart';
+import 'package:flacktest/pages/signin.dart';
+
 void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
 
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -54,14 +57,20 @@ class _MyHomePageState extends State<MyHomePage> {
 						const Text("Welcome to Scholarly"),
 						TextButton(
 							child: const Text("Sign up"),
-							onPressed: () async {
-								print("TODO!");
+							onPressed: () {
+								Navigator.push(
+									context,
+									MaterialPageRoute(builder: (context) => SignupPage()),
+								);
 							}
 						),
 						TextButton(
 							child: const Text("Sign in"),
-							onPressed: () async {
-								print("TODO!!!!");
+							onPressed: () {
+								Navigator.push(
+									context,
+									MaterialPageRoute(builder: (context) => SigninPage())
+								);
 							}
 						)
           ],
