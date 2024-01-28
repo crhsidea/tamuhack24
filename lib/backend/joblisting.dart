@@ -52,12 +52,12 @@ Listing ListingFromJSON(Map<String, dynamic> d) {
   var location = d["location"].toString();
   var hours = d["hours"].toInt();
   var title = d["title"].toString();
-	double salary;
-	if (d["salary"] == null)
-		salary = 0;
-	else
-	  salary = d["salary"].toDouble();
-	print(salary);
+  double salary;
+  if (d["salary"] == null)
+    salary = 0;
+  else
+    salary = d["salary"].toDouble();
+  print(salary);
   print(d["created_at"]);
   DateTime dt;
   if (d["created_at"] == null) {
@@ -88,7 +88,7 @@ Future<void> addListing({
   required String content,
   required String location,
   required int hours,
-	required List<String> questions,
+  required List<String> questions,
   required int salary,
 }) async {
   var data = await supabase.from("joblistings").insert({
@@ -96,11 +96,13 @@ Future<void> addListing({
     "content": content,
     "location": location,
     "hours": hours,
-		"salary": salary,
+    "salary": salary,
   }).select();
 
-	await supabase.from("questions")
-			.insert(questions.mapIndexed((i,e ) => { "listing_id": data[0]["id"], "text": e, "index": i }).toList());
+  await supabase.from("questions").insert(questions
+      .mapIndexed(
+          (i, e) => {"listing_id": data[0]["id"], "text": e, "index": i})
+      .toList());
 }
 
 Future<List<Listing>> getListingsByUser(String? uid) async {
@@ -122,22 +124,37 @@ Future<List<Listing>> getAllListings() async {
     print(d);
     var l = ListingFromJSON(d);
     print(l);
-		print("Getting images");
+    print("Getting images");
     var images =
         await supabase.from("images").select("id").eq("listing_id", l.id);
     List<String> images_s = images.map((x) => x["id"].toString()).toList();
     l.images = images_s;
 
-
-		print("Getting questions");
+    print("Getting questions");
     var questions = await supabase
         .from("questions")
         .select("(index, text)")
         .eq("listing_id", l.id);
-		print(questions);
+    print(questions);
     questions.sort((a, b) => a["index"].toInt().compareTo(b["index"].toInt()));
     l.questions = questions.map((x) => x["text"].toString()).toList();
     list_data.add(l);
   }
   return list_data;
+}
+
+Future<bool> delete(String uid) async {
+  List<Map<String, dynamic>> data = await supabase
+      .from("joblistings")
+      .select('(id,user_id,created_on,title,content,location,hours,salary)')
+      .match({'user_id': supabase.auth.currentUser?.id, 'id': uid});
+  if (supabase.auth.currentUser?.id == data[0]['user_id']) {
+    await supabase
+        .from("joblistings")
+        .delete()
+        .match({'user_id': supabase.auth.currentUser?.id, 'id': uid});
+    return true;
+  } else {
+    return false;
+  }
 }

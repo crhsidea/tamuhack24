@@ -6,7 +6,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 final supabase = Supabase.instance.client;
 
 class JobListing extends StatefulWidget {
-  const JobListing({super.key, required this.listing});
+  const JobListing({
+    super.key,
+    required this.listing,
+  });
   final Listing listing;
   @override
   State<JobListing> createState() => JobListingState();
@@ -21,28 +24,49 @@ class JobListingState extends State<JobListing> {
       children: [
         Padding(
             padding: EdgeInsets.all(24.0),
-            child: RichText(
-              text: TextSpan(
-                  text: widget.listing.title,
-                  style: TextStyle(
-										fontWeight: FontWeight.w500,
-										fontSize: 32.0,
-										color: Colors.black,
-									),
-                  children: [
-                    TextSpan(
-                        text: '\n', style: DefaultTextStyle.of(context).style),
-                    TextSpan(
-                        text: widget.listing.location + "\n",
-                        style: TextStyle(
-														color: Colors.black,
-                            fontWeight: FontWeight.w300, fontSize: 26.0)),
-                    TextSpan(
-                        text: "\$${widget.listing.salary}/hr",
-                        style: TextStyle(
-														color: Colors.black,
-                            fontWeight: FontWeight.w300, fontSize: 24.0)),
-                  ]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: widget.listing.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 32.0,
+                        color: Colors.black,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: '\n',
+                            style: DefaultTextStyle.of(context).style),
+                        TextSpan(
+                            text: widget.listing.location + "\n",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 26.0)),
+                        TextSpan(
+                            text: "\$${widget.listing.salary}/hr",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 24.0)),
+                      ]),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                    child: GestureDetector(
+                      child: Icon(Icons.delete_forever, color: Colors.red),
+                      onTap: () async {
+                        var sus = await delete(widget.listing.id);
+                        print(sus);
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                )
+              ],
             )),
         Container(
           decoration: BoxDecoration(
@@ -78,13 +102,8 @@ class JobListingState extends State<JobListing> {
             ],
           ),
         ),
-        Text(
-					widget.listing.content,
-					style: TextStyle(
-						color: Colors.black,
-						fontSize: 22.0
-					)
-				),
+        Text(widget.listing.content,
+            style: TextStyle(color: Colors.black, fontSize: 22.0)),
       ],
     ));
   }
