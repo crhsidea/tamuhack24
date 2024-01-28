@@ -45,19 +45,24 @@ class Listing {
 
 Listing ListingFromJSON(Map<String, dynamic> d) {
   print("Delisting");
-  var id = d["id"]!;
-  var user_id = d["user_id"]!;
-  var content = d["content"]!;
-  var location = d["location"]!;
-  var hours = d["hours"]!;
-  var title = d["title"]!;
-  var salary = d["dalary"]!;
+  var id = d["id"].toString();
+  var user_id = d["user_id"].toString();
+  var content = d["content"].toString();
+  var location = d["location"].toString();
+  var hours = d["hours"].toInt();
+  var title = d["title"].toString();
+	double salary;
+/*	if (d["salary"] == null)
+		salary = 0;
+	else*/
+	  salary = d["salary"].toDouble();
+	print(salary);
   print(d["created_at"]);
   DateTime dt;
   if (d["created_at"] == null) {
     dt = DateTime.now();
   } else {
-    dt = DateTime.parse(d["created_at"]!);
+    dt = DateTime.parse(d["created_at"].toString());
   }
   print("eccessed");
 
@@ -71,7 +76,7 @@ Listing ListingFromJSON(Map<String, dynamic> d) {
     title: title,
     questions: [],
     images: [],
-    salary: salary,
+    salary: 0,
   );
   print(a);
   return a;
