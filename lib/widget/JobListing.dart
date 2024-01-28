@@ -19,92 +19,83 @@ class JobListingState extends State<JobListing> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-            padding: EdgeInsets.all(24.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+            color: Color(0xFF0AFFED),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
-                  text: TextSpan(
-                      text: widget.listing.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 32.0,
-                        color: Colors.black,
-                      ),
-                      children: [
-                        TextSpan(
-                            text: '\n',
-                            style: DefaultTextStyle.of(context).style),
-                        TextSpan(
-                            text: widget.listing.location + "\n",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 26.0)),
-                        TextSpan(
-                            text: "\$${widget.listing.salary}/hr",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 24.0)),
-                      ]),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: InkWell(
-                    child: GestureDetector(
-                      child: Icon(Icons.delete_forever, color: Colors.red),
-                      onTap: () async {
-                        var sus = await delete(widget.listing.id);
-                        print(sus);
-                        setState(() {});
-                      },
-                    ),
+                Padding(
+                    padding: EdgeInsets.all(24.0),
+                    child: RichText(
+                      text: TextSpan(
+                          text: widget.listing.title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 32.0,
+                            color: Color(0xFF065A82),
+                          ),
+                          children: [
+                            TextSpan(
+                                text: '\n',
+                                style: DefaultTextStyle.of(context).style),
+                            TextSpan(
+                                text: widget.listing.location + "\n",
+                                style: TextStyle(
+                                    color: Color(0xFF065A82),
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 26.0)),
+                            TextSpan(
+                                text: "\$${widget.listing.salary}/hr",
+                                style: TextStyle(
+                                    color: Color(0xFF065A82),
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 24.0)),
+                          ]),
+                    )),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
-                )
-              ],
-            )),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          child: Row(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 64,
-                height: 250,
-                child: ListView(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
+                  child: Row(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: SizedBox(
-                          width: 200,
-                          height: 200,
-                          child: Image.network("https://picsum.photos/200"),
-                        ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 64,
+                        height: 250,
+                        child: ListView(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: SizedBox(
+                                    width: 200,
+                                    height: 200,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.network(
+                                          "https://picsum.photos/200"),
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: SizedBox(
+                                  width: 200,
+                                  height: 200,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: Image.network(
+                                        "https://picsum.photos/200"),
+                                  ),
+                                ),
+                              ),
+                            ]),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: SizedBox(
-                          width: 200,
-                          height: 200,
-                          child: Image.network("https://picsum.photos/200"),
-                        ),
-                      ),
-                    ]),
-              ),
-            ],
-          ),
-        ),
-        Text(widget.listing.content,
-            style: TextStyle(color: Colors.black, fontSize: 22.0)),
-      ],
-    ));
+                    ],
+                  ),
+                ),
+                Text(widget.listing.content,
+                    style: TextStyle(color: Color(0xFF065A82), fontSize: 22.0)),
+              ],
+            )));
   }
 }
