@@ -130,6 +130,7 @@ class AddListingPageState extends State<AddListingPage> {
 																		salary: int.parse(salary.text),
 																		questions: otherAns
 																	);
+																	Navigator.of(context).pop();
 																},
                                 style: ElevatedButton.styleFrom(
                                   minimumSize: Size(
