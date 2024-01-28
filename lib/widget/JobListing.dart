@@ -16,7 +16,7 @@ class JobListingState extends State<JobListing> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Column(
+        child: Container(color: Color(0xFF0AFFED),child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
@@ -27,7 +27,7 @@ class JobListingState extends State<JobListing> {
                   style: TextStyle(
 										fontWeight: FontWeight.w500,
 										fontSize: 32.0,
-										color: Colors.black,
+										color: Color(0xFF065A82),
 									),
                   children: [
                     TextSpan(
@@ -35,12 +35,12 @@ class JobListingState extends State<JobListing> {
                     TextSpan(
                         text: widget.listing.location + "\n",
                         style: TextStyle(
-														color: Colors.black,
+														color: Color(0xFF065A82),
                             fontWeight: FontWeight.w300, fontSize: 26.0)),
                     TextSpan(
                         text: "\$${widget.listing.salary}/hr",
                         style: TextStyle(
-														color: Colors.black,
+														color: Color(0xFF065A82),
                             fontWeight: FontWeight.w300, fontSize: 24.0)),
                   ]),
             )),
@@ -62,15 +62,20 @@ class JobListingState extends State<JobListing> {
                         child: SizedBox(
                           width: 200,
                           height: 200,
-                          child: Image.network("https://picsum.photos/200"),
-                        ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.network("https://picsum.photos/200"),
+                        )),
                       ),
                       Padding(
                         padding: EdgeInsets.all(16.0),
                         child: SizedBox(
                           width: 200,
                           height: 200,
-                          child: Image.network("https://picsum.photos/200"),
+                          child:ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.network("https://picsum.photos/200"),
+                        ),
                         ),
                       ),
                     ]),
@@ -81,11 +86,11 @@ class JobListingState extends State<JobListing> {
         Text(
 					widget.listing.content,
 					style: TextStyle(
-						color: Colors.black,
+						color: Color(0xFF065A82),
 						fontSize: 22.0
 					)
 				),
       ],
-    ));
+    )) );
   }
 }
