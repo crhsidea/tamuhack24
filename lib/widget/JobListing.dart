@@ -1,3 +1,4 @@
+import 'package:flacktest/pages/applyform.dart';
 import 'package:flutter/material.dart';
 import 'package:flacktest/backend/joblisting.dart';
 import 'package:flutter/rendering.dart';
@@ -18,7 +19,10 @@ class JobListing extends StatefulWidget {
 class JobListingState extends State<JobListing> {
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ApplyForm(listing: widget.listing))),
+      child: Card(
         child: Container(
             color: Color(0xFF0AFFED),
             child: Column(
