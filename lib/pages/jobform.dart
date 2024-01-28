@@ -1,15 +1,19 @@
 //job title
 //how many hours
 import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:flacktest/pages/navbar.dart';
 
+// ignore: must_be_immutable
+
+// ignore: must_be_immutable
 class JobForm extends StatefulWidget {
-  const JobForm({super.key});
-  late String title;
-  late String descript;
-  late String hours;
+  JobForm({super.key, required this.title1,
+  required this.descript1, 
+  required this.hours1});
+  String title1;
+  String descript1;
+  String hours1; 
 
   @override
   State<JobForm> createState() => JobFormState();
@@ -21,11 +25,11 @@ class JobFormState extends State<JobForm> {
   final DescriptionController = TextEditingController();
   final hoursController= TextEditingController();
   @override
-  void dispose(){
-    super.dispose();
+  void dispose(){ 
     titleController.dispose();
     DescriptionController.dispose();
     hoursController.dispose();
+    super.dispose();
   }
   // ignore: non_constant_identifier_names
   bool title = false;
@@ -63,6 +67,7 @@ class JobFormState extends State<JobForm> {
                         onChanged: (t){
                           setState((){
                             title = t.isNotEmpty;
+                            widget.title1 = t.toString();
                           });
                         }
                       )),
@@ -74,6 +79,7 @@ class JobFormState extends State<JobForm> {
                     onChanged: (t){
                           setState((){
                             descript = t.isNotEmpty;
+                            widget.descript1 = t;
                           });
                         }
                   )),
@@ -85,6 +91,7 @@ class JobFormState extends State<JobForm> {
                     onChanged: (t){
                           setState((){
                             hours = t.isNotEmpty;
+                            widget.hours1 = t;
                           });
                         }
                   )),
@@ -94,14 +101,14 @@ class JobFormState extends State<JobForm> {
                       MaterialPageRoute(builder: (context) => MainScreenNav()));
                 },
                 child: const Text("Submit job")),
-              ])
-            
-            
-            // Container(const WidgetSpan(child: Icon(
-            //   (title && descript && hours)? Icons.check: Icons.sentiment_dissatisfied,
-            //   size: 14,
-            //   color: (title && descript && hours)? Colors.green.shade600: Colors.red.shade300
-            // )))
+                RichText(text: TextSpan(children: [
+                  WidgetSpan(child: Icon(
+                    hours? Icons.check: Icons.sentiment_dissatisfied,
+                    size: 14,
+                    color: hours? Colors.green.shade600: Colors.red.shade300
+                ))
+                ]),)
+              ]) 
           )]
           )
           ),

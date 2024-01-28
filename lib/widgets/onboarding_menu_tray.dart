@@ -1,4 +1,5 @@
 import 'package:flacktest/backend/application.dart';
+import 'package:flacktest/pages/jobform.dart';
 import 'package:flacktest/pages/signin.dart';
 import 'package:flacktest/pages/signup.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +30,10 @@ class OnboardingMenuTray extends StatelessWidget {
                       backgroundColor:
                           MaterialStatePropertyAll<Color>(Colors.lightBlue)),
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => JobForm()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => JobForm()),
+                    );
                   }),
             ),
             SizedBox(
