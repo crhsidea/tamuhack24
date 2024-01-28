@@ -12,7 +12,8 @@ class Listing {
 	final String location;
 	final int hours;
 	final DateTime created_at;
-	final List<dynamic> questions;
+	List<dynamic> questions;
+	List<dynamic> images;
 
 	Listing({
 		required this.id,
@@ -23,6 +24,7 @@ class Listing {
 		required this.hours,
 		required this.title,
 		required this.questions,
+		required this.images,
 	});
 	
 	Map<String, dynamic> toJSON() {
@@ -35,6 +37,7 @@ class Listing {
 			"location": location,
 			"hours": hours,
 			"questions": json.encode(questions),
+			"images": json.encode(images),
 		};
 	}
 }
@@ -42,21 +45,21 @@ class Listing {
 
 Listing ListingFromJSON(Map<String, dynamic> d) {
 	print("Delisting");
-	print(d["questions"]);
-	var id = d["id"];
-	var user_id = d["user_id"];
-	var content = d["content"];
-	var location = d["location"];
-	var hours = d["hours"];
-	var title = d["title"];
-	var questions = d["questions"];
-	print(questions);
-	print(d["created_on"]);
+	var id = d["id"]!;
+	var user_id = d["user_id"]!;
+	var content = d["content"]!;
+	var location = d["location"]!;
+	var hours = d["hours"]!;
+	var title = d["title"]!;
+	print(d["created_at"]);
 	DateTime dt;
-	if (d["created_on"] == null) dt = DateTime.now();
-	else dt = DateTime.parse(d["created_on"]!);
+	if (d["created_at"] == null) {
+		dt = DateTime.now();
+	} else {
+		dt = DateTime.parse(d["created_at"]!);
+	}
 	print("eccessed");
-	
+
 	var a =  Listing(
 		id : id,
 		user_id : user_id,
@@ -66,6 +69,7 @@ Listing ListingFromJSON(Map<String, dynamic> d) {
 		hours : hours,
 		title : title,
 		questions : [],
+		images : [],
 	);
 	print(a);
 	return a;
@@ -103,9 +107,21 @@ Future<List<Listing>> getAllListings() async {
 		print(d);
 		var l = ListingFromJSON(d);
 		print(l);
+		var images = await supabase
+				.from("images")
+				.select("id")
+				.eq("listing_id", l.id);
+		List<String> images_s = images.map((x) => x["id"].toString()).toList();
+		l.images = images_s;
+
 		list_data.add(l);
+
+		var questions = await supabase
+				.from("questions")
+				.select("(index, text)")
+				.eq("listing_id", l.id);
+		questions.sort((a, b) => a["index"].toInt().compareTo(b["index"].toInt()));
+		l.questions = questions.map((x) => x["text"].toString()).toList();
 	}
-	print("DONE WITH LOOP");
-	print(list_data);
 	return list_data;
 }
