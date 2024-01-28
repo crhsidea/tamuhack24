@@ -25,13 +25,21 @@ class SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
+        resizeToAvoidBottomInset: true,
+        /*appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text("Signup for JobJet"),
-        ),
-        body: Center(
+        ),*/
+        body: SingleChildScrollView(
+					child: Center(
             child: Column(children: [
+					Padding(
+						padding: EdgeInsets.only(top: 48.0, left: 32.0, bottom: 16.0),
+						child: Align(
+							alignment: Alignment.centerLeft,
+							child: Text("Sign up", style: TextStyle(color: Color(0xFF065A82), fontWeight: FontWeight.bold, fontSize: 64.0)),
+						),
+					),
           Image(image: AssetImage("images/rocket_launch.gif")),
           Padding(
             padding: EdgeInsets.all(16.0),
@@ -142,6 +150,6 @@ class SignupPageState extends State<SignupPage> {
                   }
                 }),
           )
-        ])));
+        ]))));
   }
 }

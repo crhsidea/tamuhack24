@@ -59,9 +59,10 @@ class _ProfilePageState extends State<ProfilePage> {
 													)
 												),
 										),
+									SizedBox(height:40),
 									SizedBox(
-										height: 42,
-										width: 200,
+										height: 60,
+										width: 300,
 										child: TextButton(
 												style: ButtonStyle(
 														backgroundColor:
@@ -82,14 +83,14 @@ class _ProfilePageState extends State<ProfilePage> {
 													}
 												},
 												child: Text(
-													"Upload resume!",
-													style: TextStyle(color: Colors.white),
+													"Upload your resume",
+													style: TextStyle(color: Colors.white,fontSize: 18.0),
 												)),
 									),
 									SizedBox(height: 12.5),
 									SizedBox(
-										height: 42,
-										width: 200,
+										height: 60,
+										width: 300,
 										child: TextButton(
 											style: ButtonStyle(
 													backgroundColor:
@@ -100,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
 											},
 											child: Text(
 												"Sign out",
-												style: TextStyle(color: Colors.white),
+												style: TextStyle(color: Colors.white, fontSize: 18),
 											),
 										),
 									),
