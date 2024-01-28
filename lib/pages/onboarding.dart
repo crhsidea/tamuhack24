@@ -31,9 +31,8 @@ class OnboardingPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 17,
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: Image.network(
-                    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.dribbble.com%2Fusers%2F177698%2Fscreenshots%2F1074614%2Fattachments%2F133093%2FRocket-Ship-to-Moon.png&f=1&nofb=1&ipt=61d45263e2e52c90e2f305ba7994a72631878600dfe1a1dae45efb336f73218d&ipo=images"),
-              ),
+                child: Image.asset("images/rocket.png"),
+							),
 							Padding(
 								padding: EdgeInsets.all(32.0),
 								child: Text(
