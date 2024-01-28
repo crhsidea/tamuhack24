@@ -42,6 +42,7 @@ dependencies:
   dynamic_form: ^0.23.0
   file_picker: ^6.1.1
   flutter_phoenix: ^1.1.1
+  collection: ^1.18.0
 
 dev_dependencies:
   flutter_test:

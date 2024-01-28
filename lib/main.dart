@@ -9,7 +9,7 @@ import 'package:flacktest/pages/signin.dart';
 import 'package:flacktest/backend/joblisting.dart';
 import 'package:flacktest/backend/application.dart';
 
-import 'package:flacktest/pages/jobform.dart';
+// import 'package:flacktest/pages/jobform.dart';
 
 final supabase = Supabase.instance.client;
 void main() async {
@@ -85,39 +85,37 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextButton(child: const Text("testing"), 
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const JobForm()),
-              );
-            },
+            TextButton(
+              child: const Text("testing"),
+              onPressed: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const JobForm()),
+                // );
+              },
             ),
-						const Text("Welcome to Scholarly"),
-						TextButton(
-							child: const Text("Sign up"),
-							onPressed: () {
-								Navigator.push(
-									context,
-									MaterialPageRoute(builder: (context) => SignupPage()),
-								);
-							}
-						),
-						TextButton(
-							child: const Text("Sign in"),
-							onPressed: () {
-								Navigator.push(
-									context,
-									MaterialPageRoute(builder: (context) => SigninPage())
-								);
-							}
-						),
-						TextButton(
-							child: const Text("Test button"),
-							onPressed: () async {
-								print(await getApplicationsByListing("ccb2194d-b12d-4349-acc7-7933d3328971"));
-							}
-						),
+            const Text("Welcome to Scholarly"),
+            TextButton(
+                child: const Text("Sign up"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignupPage()),
+                  );
+                }),
+            TextButton(
+                child: const Text("Sign in"),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SigninPage()));
+                }),
+            TextButton(
+                child: const Text("Test button"),
+                onPressed: () async {
+                  await addApplication(
+                      listing_id: "ccb2194d-b12d-4349-acc7-7933d3328971",
+                      answers: ["foo", "bar"]);
+                }),
           ],
         ),
       ),

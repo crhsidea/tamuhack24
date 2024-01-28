@@ -2,6 +2,7 @@ import 'package:flacktest/backend/application.dart';
 import 'package:flacktest/pages/signin.dart';
 import 'package:flacktest/pages/signup.dart';
 import 'package:flutter/material.dart';
+// import 'package:flacktest/pages/jobform.dart';
 
 class OnboardingMenuTray extends StatelessWidget {
   const OnboardingMenuTray({
@@ -18,6 +19,22 @@ class OnboardingMenuTray extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              width: 200,
+              height: 42,
+              child: TextButton(
+                  child: const Text("Job Form",
+                      style: const TextStyle(color: Colors.white)),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll<Color>(Colors.lightBlue)),
+                  onPressed: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => JobForm()),
+                    // );
+                  }),
+            ),
             SizedBox(
               width: 200,
               height: 42,
