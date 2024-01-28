@@ -41,9 +41,6 @@ class SigninPageState extends State<SigninPage> {
                   hintText: 'enter Email',
                   fillColor: Color(0xFFE6E1C5),
                   focusColor: Color(0xFFBA2D0B),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 3, color: Color(0xFFBA2D0B))),
                 ),
                 controller: emailController,
               ),
@@ -51,14 +48,13 @@ class SigninPageState extends State<SigninPage> {
             Padding(
               padding: EdgeInsets.all(16.0),
               child: TextField(
+                  obscureText: true,
+                  obscuringCharacter: '●',
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.password),
-                    hintText: 'enter Email',
+                    hintText: 'enter Password',
                     fillColor: Color(0xFFE6E1C5),
                     focusColor: Color(0xFFBA2D0B),
-                    border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(width: 3, color: Color(0xFFBA2D0B))),
                   ),
                   controller: passwordController,
                   onChanged: (text) {
