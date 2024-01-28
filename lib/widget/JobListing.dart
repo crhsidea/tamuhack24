@@ -53,11 +53,17 @@ class JobListingState extends State<JobListing> {
                                           fontWeight: FontWeight.w300,
                                           fontSize: 26.0)),
                                   TextSpan(
-                                      text: "\$${widget.listing.salary}/hr",
+                                      text: "\$${widget.listing.salary}/hr @ ${widget.listing.hours}hr/week\n",
                                       style: TextStyle(
                                           color: Color(0xFF065A82),
                                           fontWeight: FontWeight.w300,
-                                          fontSize: 24.0)),
+                                          fontSize: 22.0)),
+                                  TextSpan(
+                                      text: "Tap anywhere to apply",
+                                      style: TextStyle(
+                                          color: Color(0xFF065A82),
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 14.0)),
                                 ]),
                           )),
                       Container(

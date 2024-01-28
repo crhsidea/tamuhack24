@@ -50,7 +50,13 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
         builder: (BuildContext context,
             AsyncSnapshot<List<(Application, Listing)>> snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return 
+								SizedBox(
+									height:200,
+									width:200,
+									child:
+									CircularProgressIndicator()
+								);
           }
 
           print(snapshot.data);
