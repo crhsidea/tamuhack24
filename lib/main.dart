@@ -10,6 +10,7 @@ import 'package:flacktest/backend/joblisting.dart';
 import 'package:flacktest/backend/application.dart';
 
 import 'package:flacktest/pages/jobform.dart';
+
 final supabase = Supabase.instance.client;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'JobJet',
       theme: ThemeData(
-				fontFamily: "Rubik",
+        fontFamily: "Rubik",
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
         useMaterial3: true,
       ),
