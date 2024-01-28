@@ -5,21 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flacktest/pages/navbar.dart';
 
 // ignore: must_be_immutable
-Formset({
-  required this.title1;
-  required this.descript1;
-  required this.hours1;
-})
+
+// ignore: must_be_immutable
 class JobForm extends StatefulWidget {
-  const JobForm({super.key, required this.title1,
+  JobForm({super.key, required this.title1,
   required this.descript1, 
   required this.hours1});
   String title1;
   String descript1;
-  String hours1;
+  String hours1; 
 
-  
-  final 
   @override
   State<JobForm> createState() => JobFormState();
 }
