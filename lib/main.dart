@@ -80,7 +80,47 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: SafeArea(child: Center(child: CircularProgressIndicator())),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextButton(child: const Text("testing"), 
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const JobForm()),
+              );
+            },
+            ),
+						const Text("Welcome to Scholarly"),
+						TextButton(
+							child: const Text("Sign up"),
+							onPressed: () {
+								Navigator.push(
+									context,
+									MaterialPageRoute(builder: (context) => SignupPage()),
+								);
+							}
+						),
+						TextButton(
+							child: const Text("Sign in"),
+							onPressed: () {
+								Navigator.push(
+									context,
+									MaterialPageRoute(builder: (context) => SigninPage())
+								);
+							}
+						),
+						TextButton(
+							child: const Text("Test button"),
+							onPressed: () async {
+								print(await getApplicationsByListing("ccb2194d-b12d-4349-acc7-7933d3328971"));
+							}
+						),
+          ],
+        ),
+      ),
+      // body: SafeArea(child: Center(child: CircularProgressIndicator())),
     );
   }
 }

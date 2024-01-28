@@ -65,6 +65,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  current_location:
+    dependency: "direct main"
+    description:
+      name: current_location
+      sha256: e181e5856537a8dfa4d994b805b09d30a23b9a24ad259b2d75153a95311625c9
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -156,10 +164,10 @@ packages:
     dependency: transitive
     description:
       name: http
-      sha256: a2bbf9d017fcced29139daa8ed2bba4ece450ab222871df93ca9eec6f80c34ba
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "0.13.6"
   http_parser:
     dependency: transitive
     description:
