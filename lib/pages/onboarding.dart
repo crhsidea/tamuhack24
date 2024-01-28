@@ -42,8 +42,13 @@ class OnboardingPage extends StatelessWidget {
                     onPressed: () {
                       showMaterialModalBottomSheet(
                         context: context,
-                        builder: (context) =>
-                            Container(child: OnboardingMenuTray()),
+                        clipBehavior: Clip.hardEdge,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15)),
+                        ),
+                        builder: (context) => OnboardingMenuTray(),
                       );
                     }),
               ),
