@@ -27,25 +27,29 @@ class JobListingState extends State<JobListing>{
 									)
 								)
 							),
-							Row(
-								children: [ 
-									Padding(
-										padding: EdgeInsets.all(16.0),
-										child: SizedBox(
-											width: 200,
-											height: 200,
-											child: Image.network("https://picsum.photos/200"),
+							Container(
+								height: 250,
+								child: ListView(
+									scrollDirection: Axis.horizontal,
+									children: [ 
+										Padding(
+											padding: EdgeInsets.all(16.0),
+											child: SizedBox(
+												width: 200,
+												height: 200,
+												child: Image.network("https://picsum.photos/200"),
+											),
 										),
-									),
-									Padding(
-										padding: EdgeInsets.all(16.0),
-										child: SizedBox(
-											width: 200,
-											height: 200,
-											child: Image.network("https://picsum.photos/200"),
+										Padding(
+											padding: EdgeInsets.all(16.0),
+											child: SizedBox(
+												width: 200,
+												height: 200,
+												child: Image.network("https://picsum.photos/200"),
+											),
 										),
-									),
-								]
+									]
+								),
 							),
               Container(
                  decoration: BoxDecoration(
