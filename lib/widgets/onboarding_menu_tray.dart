@@ -77,8 +77,8 @@ class OnboardingMenuTray extends StatelessWidget {
                       backgroundColor:
                           MaterialStatePropertyAll<Color>(Colors.lightBlue)),
                   onPressed: () async {
-                    await getApplicationsByListing(
-                        "ccb2194d-b12d-4349-acc7-7933d3328971");
+                    await addApplication(
+                        listing_id: "ccb2194d-b12d-4349-acc7-7933d3328971", answers: ["foo"]);
                   }),
             ),
           ],

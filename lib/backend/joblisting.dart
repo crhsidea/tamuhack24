@@ -79,13 +79,17 @@ Future<void> addListing({
   required String content,
   required String location,
   required int hours,
+	required List<String> questions,
 }) async {
-  await supabase.from("joblistings").insert({
+  var data = await supabase.from("joblistings").insert({
     "title": title,
     "content": content,
     "location": location,
     "hours": hours,
-  });
+  }).select();
+
+	await supabase.from("questions")
+			.insert(questions.map((e) => { "listing_id": data[0]["id"], "text": e }).toList());
 }
 
 Future<List<Listing>> getListingsByUser(String? uid) async {
