@@ -1,7 +1,7 @@
 import 'package:flacktest/pages/applyform.dart';
 import 'package:flutter/material.dart';
 import 'package:flacktest/backend/joblisting.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flacktest/pages/manageapplications.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final supabase = Supabase.instance.client;
@@ -95,7 +95,16 @@ class JobListingState extends State<JobListing> {
 									),
                 Text(widget.listing.content,
                     style: TextStyle(color: Color(0xFF065A82), fontSize: 22.0)),
-              ],
-            )));
+									if (widget.listing.user_id == supabase.auth.currentUser!.id) 
+									TextButton(
+										child: Text(
+											"View applications"
+										),
+										onPressed: () {
+											Navigator.of(context).push(MaterialPageRoute(builder: (context) => ManageApplicationsPage(listing: widget.listing)));
+										}
+									)
+              ] 
+            ))));
   }
 }
