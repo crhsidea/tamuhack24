@@ -24,6 +24,7 @@ class SigninPageState extends State<SigninPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text("Sign in JobJet"),
@@ -35,6 +36,8 @@ class SigninPageState extends State<SigninPage> {
             padding: EdgeInsets.all(16.0),
             child: TextField(
               decoration: InputDecoration(
+                prefixIcon: Icon(Icons.email_rounded),
+                hintText: 'enter Email',
                 fillColor: Color(0xFFE6E1C5),
                 focusColor: Color(0xFFBA2D0B),
               ),
@@ -45,6 +48,12 @@ class SigninPageState extends State<SigninPage> {
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextField(
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.password),
+                  hintText: 'enter Email',
+                  fillColor: Color(0xFFE6E1C5),
+                  focusColor: Color(0xFFBA2D0B),
+                ),
                 controller: passwordController,
                 onChanged: (text) {
                   setState(() {
