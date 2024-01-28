@@ -39,8 +39,6 @@ class SignupPageState extends State<SignupPage> {
               controller: emailController,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email_outlined),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(width: 3, color: Color(0xFFBA2D0B))),
                 hintText: 'Email',
               ),
             ),
@@ -51,9 +49,6 @@ class SignupPageState extends State<SignupPage> {
               controller: nameController,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.check),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 3, color: Color(0xFFBA2D0B)),
-                ),
                 hintText: 'Full Name',
               ),
             ),
@@ -61,6 +56,8 @@ class SignupPageState extends State<SignupPage> {
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextField(
+              obscureText: true,
+              obscuringCharacter: '●',
               controller: passwordController,
               onChanged: (text) {
                 setState(() {
@@ -69,9 +66,6 @@ class SignupPageState extends State<SignupPage> {
               },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.password_outlined),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 3, color: Color(0xFFBA2D0B)),
-                ),
                 hintText: 'Password',
               ),
             ),
