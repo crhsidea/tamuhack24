@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final supabase = Supabase.instance.client;
@@ -14,18 +13,19 @@ class Listing {
   final DateTime created_at;
   List<dynamic> questions;
   List<dynamic> images;
+  final double salary;
 
-  Listing({
-    required this.id,
-    required this.user_id,
-    required this.content,
-    required this.created_at,
-    required this.location,
-    required this.hours,
-    required this.title,
-    required this.questions,
-    required this.images,
-  });
+  Listing(
+      {required this.id,
+      required this.user_id,
+      required this.content,
+      required this.created_at,
+      required this.location,
+      required this.hours,
+      required this.title,
+      required this.questions,
+      required this.images,
+      required this.salary});
 
   Map<String, dynamic> toJSON() {
     return {
@@ -38,6 +38,7 @@ class Listing {
       "hours": hours,
       "questions": json.encode(questions),
       "images": json.encode(images),
+      "salary": salary
     };
   }
 }
@@ -50,6 +51,7 @@ Listing ListingFromJSON(Map<String, dynamic> d) {
   var location = d["location"]!;
   var hours = d["hours"]!;
   var title = d["title"]!;
+  var salary = d["dalary"]!;
   print(d["created_at"]);
   DateTime dt;
   if (d["created_at"] == null) {
@@ -69,6 +71,7 @@ Listing ListingFromJSON(Map<String, dynamic> d) {
     title: title,
     questions: [],
     images: [],
+    salary: salary,
   );
   print(a);
   return a;
@@ -80,12 +83,14 @@ Future<void> addListing({
   required String location,
   required int hours,
 	required List<String> questions,
+  required int salary,
 }) async {
   var data = await supabase.from("joblistings").insert({
     "title": title,
     "content": content,
     "location": location,
     "hours": hours,
+		"salary": salary,
   }).select();
 
 	await supabase.from("questions")
@@ -95,7 +100,7 @@ Future<void> addListing({
 Future<List<Listing>> getListingsByUser(String? uid) async {
   List<Map<String, dynamic>> data = await supabase
       .from("joblistings")
-      .select('(id,user_id,created_on,title,content,location,hours)')
+      .select('(id,user_id,created_on,title,content,location,hours,salary)')
       .eq("user_id", uid ?? supabase.auth.currentUser!.id);
   List<Listing> list_data = data.map((d) => ListingFromJSON(d)).toList();
   return list_data;
@@ -104,7 +109,7 @@ Future<List<Listing>> getListingsByUser(String? uid) async {
 Future<List<Listing>> getAllListings() async {
   List<Map<String, dynamic>> data = await supabase
       .from("joblistings")
-      .select('(id,user_id,created_on,title,content,location,hours)');
+      .select('(id,user_id,created_on,title,content,location,hours,salary)');
   print(data);
   List<Listing> list_data = [];
   for (Map<String, dynamic> d in data) {
