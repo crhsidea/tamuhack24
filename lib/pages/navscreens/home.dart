@@ -18,7 +18,11 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.only(top: 32.0, left: 32.0, bottom: 16.0),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Text("JobJet", style: TextStyle(color: Color(0xFF065A82), fontWeight: FontWeight.bold, fontSize: 64.0)),
+          child: Text("JobJet",
+              style: TextStyle(
+                  color: Color(0xFF065A82),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 64.0)),
         ),
       ),
       Padding(
@@ -38,9 +42,9 @@ class _HomePageState extends State<HomePage> {
                 leading: const Icon(Icons.search),
                 trailing: [
                   IconButton(
-                      icon: Icon(Icons.clear),
+                      icon: Icon(Icons.refresh),
                       onPressed: () {
-                        controller.clear();
+                        setState(() {});
                       })
                 ]);
           },
@@ -58,18 +62,29 @@ class _HomePageState extends State<HomePage> {
                   width: 100, height: 100, child: CircularProgressIndicator());
             }
             print(snapshot.data);
-            return Expanded(
-              child: SizedBox(
-                // height: MediaQuery.of(context).size.height * 0.5,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  children: snapshot.data!
-                      .map((x) => JobListing(listing: x))
-                      .toList(),
-                ),
-              ),
-            );
+            return snapshot.data!.isNotEmpty
+                ? Expanded(
+                    child: SizedBox(
+                      // height: MediaQuery.of(context).size.height * 0.5,
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        children: snapshot.data!
+                            .map((x) => JobListing(listing: x))
+                            .toList(),
+                      ),
+                    ),
+                  )
+                : Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Text(
+                        "We are still fueling up the rocket, check back soon for more job listings.",
+                        style:
+                            TextStyle(fontSize: 20, color: Color(0xFF065A82)),
+                      ),
+                    ),
+                  );
           })
     ]));
   }
