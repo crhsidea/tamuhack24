@@ -36,7 +36,7 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
                         status: e.accepted,
                         jobName: e.listing_id.toString(),
                       ),
-                    )
+											))
                     .toList(),
               )
             : Center(
