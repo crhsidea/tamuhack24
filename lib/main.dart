@@ -120,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: SafeArea(child: Center(child: CircularProgressIndicator())),
+      // body: SafeArea(child: Center(child: CircularProgressIndicator())),
     );
   }
 }
