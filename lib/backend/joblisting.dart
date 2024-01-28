@@ -52,9 +52,9 @@ Listing ListingFromJSON(Map<String, dynamic> d) {
   var hours = d["hours"].toInt();
   var title = d["title"].toString();
 	double salary;
-/*	if (d["salary"] == null)
+	if (d["salary"] == null)
 		salary = 0;
-	else*/
+	else
 	  salary = d["salary"].toDouble();
 	print(salary);
   print(d["created_at"]);
