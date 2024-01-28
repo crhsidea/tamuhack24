@@ -20,26 +20,6 @@ class _ListingsPageState extends State<ListingsPage> {
         child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Stack(children: [
-              Align(
-                alignment: Alignment.bottomRight,
-                child: SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: Ink(
-                    decoration: const ShapeDecoration(
-                      color: Colors.lightBlue,
-                      shape: CircleBorder(),
-                    ),
-                    child: IconButton(
-                        icon: const Icon(Icons.add, size: 30),
-                        color: Colors.white,
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AddListingPage()));
-                        }),
-                  ),
-                ),
-              ),
               Column(children: [
                 Align(
                   alignment: Alignment.centerLeft,
@@ -51,6 +31,29 @@ class _ListingsPageState extends State<ListingsPage> {
                             fontWeight: FontWeight.bold,
                           ))),
                 ),
+								Padding(
+									padding: EdgeInsets.all(24.0),
+									child: ElevatedButton(
+										onPressed: () {
+											Navigator.of(context).push(MaterialPageRoute(
+													builder: (context) => AddListingPage()));
+										},
+										style: ElevatedButton.styleFrom(
+											minimumSize: Size(
+													MediaQuery.of(context).size.width - (24+16)*2,
+													75),
+											backgroundColor: Color(0xFF91A6FF),
+										),
+										child: Text(
+											"Add a listing!",
+											style: TextStyle(
+												fontWeight: FontWeight.w600,
+												fontSize: 44.0,
+												color: Colors.white,
+											)
+										)
+									),
+								),
                 FutureBuilder(
                     future: getListingsByUser(supabase.auth.currentUser!.id),
                     builder: (BuildContext context,
@@ -69,7 +72,7 @@ class _ListingsPageState extends State<ListingsPage> {
                         ),
                       );
                     })
-              ])
+              ]),
             ])));
   }
 }

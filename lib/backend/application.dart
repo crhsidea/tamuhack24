@@ -41,6 +41,21 @@ class Application {
   }
 }
 
+Application ApplicationFromJSON(Map<String, dynamic> d) {
+  return Application(
+       id : d["id"].toString(),
+        user_id : d["user_id"].toString(),
+        listing_id : d["listing_id"].toString(),
+        created_at : DateTime.parse(d["created_at"].toString()),
+        accepted : d["accepted"].toBool(),
+        answers : []
+	);
+}
+Future<void> acceptApplication(String id, bool accepted) async {
+		await supabase.from("applications")
+				.update({ "accepted": accepted })
+				.eq("id", id);
+}
 Future<void> addApplication({
   required String listing_id,
   required List<String> answers,
@@ -68,10 +83,17 @@ Future<void> addApplication({
 Future<List<Application>> getApplicationsByListing(String uid) async {
   List<Map<String, dynamic>> data = await supabase
       .from("applications")
-      .select('(id,user_id,listing_id,created_on,answers,accepted)')
+      .select('(id,user_id,listing_id,created_on,accepted)')
       .eq("listing_id", uid);
-  List<Application> list_data =
-      data.map((d) => Application.fromJSON(d)).toList();
+  List<Application> list_data = [];
+	for (Map<String,dynamic> json in data) {
+		Application a = ApplicationFromJSON(json);
+		List<Map<String, dynamic>> answers = await supabase.from("answers").select("(index, text")
+				.eq("user_id", supabase.auth.currentUser!.id)
+				.eq("listing_id", uid);
+		print(answers);
+		list_data.add(a);
+	}
   return list_data;
 }
 

@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:collection/collection.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -13,7 +16,6 @@ class Listing {
   final int hours;
   final DateTime created_at;
   List<dynamic> questions;
-  List<dynamic> images;
   final double salary;
 
   Listing(
@@ -25,7 +27,6 @@ class Listing {
       required this.hours,
       required this.title,
       required this.questions,
-      required this.images,
       required this.salary});
 
   Map<String, dynamic> toJSON() {
@@ -37,8 +38,6 @@ class Listing {
       "title": title,
       "location": location,
       "hours": hours,
-      "questions": json.encode(questions),
-      "images": json.encode(images),
       "salary": salary
     };
   }
@@ -76,14 +75,13 @@ Listing ListingFromJSON(Map<String, dynamic> d) {
     hours: hours,
     title: title,
     questions: [],
-    images: [],
     salary: salary,
   );
   print(a);
   return a;
 }
 
-Future<void> addListing({
+Future<String> addListing({
   required String title,
   required String content,
   required String location,
@@ -103,6 +101,8 @@ Future<void> addListing({
       .mapIndexed(
           (i, e) => {"listing_id": data[0]["id"], "text": e, "index": i})
       .toList());
+
+	return data[0]["id"];
 }
 
 Future<List<Listing>> getListingsByUser(String? uid) async {
@@ -124,25 +124,30 @@ Future<List<Listing>> getAllListings() async {
     print(d);
     var l = ListingFromJSON(d);
     print(l);
-    print("Getting images");
-    var images =
-        await supabase.from("images").select("id").eq("listing_id", l.id);
-    List<String> images_s = images.map((x) => x["id"].toString()).toList();
-    l.images = images_s;
 
-    print("Getting questions");
-    var questions = await supabase
-        .from("questions")
-        .select("(index, text)")
-        .eq("listing_id", l.id);
-    print(questions);
-    questions.sort((a, b) => a["index"].toInt().compareTo(b["index"].toInt()));
-    l.questions = questions.map((x) => x["text"].toString()).toList();
     list_data.add(l);
   }
   return list_data;
 }
 
+Future<void> uploadImage(String id, XFile image) async {
+	var uuid  = Uuid();
+	var data = await image.readAsBytes();
+	await supabase.storage.from("jobimages").uploadBinary(
+		"/listings/${id}/${uuid.v4()}.jpg",
+		data
+	);
+}
+
+Future<List<Image>> getImagesForListing(String id) async {
+	var list = await supabase.storage.from("jobimages").list(path:"listings/$id");
+	List<Image> images = [];
+	for (FileObject file in list) {
+		var data = await supabase.storage.from("jobimages").download("listings/$id/${file.name}");
+		images.add(Image.memory(data));
+	}
+	return images;
+}
 Future<bool> delete(String uid) async {
   List<Map<String, dynamic>> data = await supabase
       .from("joblistings")

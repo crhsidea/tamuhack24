@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flacktest/backend/joblisting.dart';
 import 'package:wave/wave.dart';
 import 'package:wave/config.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddListingPage extends StatefulWidget {
   @override
@@ -19,6 +20,9 @@ class AddListingPageState extends State<AddListingPage> {
   TextEditingController desc = TextEditingController();
   TextEditingController salary = TextEditingController();
   List<String> otherAns = [];
+	List<XFile> images = [];
+
+	final ImagePicker picker = ImagePicker();
 
   List<Widget> genList(int count) {
     List<Widget> out = [];
@@ -119,15 +123,36 @@ class AddListingPageState extends State<AddListingPage> {
                                   child: e) as Widget)
                               .toList() +
                           <Widget>[
+														ElevatedButton(
+																onPressed: () async {
+																	images = await picker.pickMultiImage();
+																},
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(
+                                      MediaQuery.of(context).size.width-250, 30),
+                                  backgroundColor: Color(0xFF91A6FF),
+                                ),
+																child: Text(
+																	"Add some images?",
+																	style: TextStyle(
+																		color: Colors.white,
+																		fontWeight: FontWeight.w300,
+																		fontSize: 24.0,
+																),
+															),
+														),
                             ElevatedButton(
                                 onPressed: () async {
-                                  await addListing(
+                                  String id = await addListing(
                                       title: name.text,
                                       content: desc.text,
                                       location: location.text,
                                       hours: int.parse(hours.text),
                                       salary: int.parse(salary.text),
                                       questions: otherAns);
+																	for (XFile image in images) {
+																		await uploadImage(id, image);
+																	}
                                   Navigator.of(context).pop();
                                 },
                                 style: ElevatedButton.styleFrom(

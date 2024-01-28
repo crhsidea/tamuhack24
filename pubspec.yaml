@@ -44,6 +44,8 @@ dependencies:
   flutter_phoenix: ^1.1.1
   collection: ^1.18.0
   wave: ^0.2.2
+  image_picker: ^1.0.7
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:
