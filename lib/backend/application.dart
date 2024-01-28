@@ -50,13 +50,16 @@ Future<void> addApplication({
   }).select();
   print(data);
 
-	var questions = await supabase.from("questions")
-			.select("(id, index)")
-			.eq("listing_id", listing_id);
-	questions.sort((a, b) => a["index"].toInt().compareTo(b["index"].toInt()));
-	await supabase.from("answers")
-			.insert(answers.mapIndexed((i, e) => {"text" : e, "index": i, "question_id": questions[i]["id"]}).toList());
-				
+  var questions = await supabase
+      .from("questions")
+      .select("(id, index)")
+      .eq("listing_id", listing_id);
+  questions.sort((a, b) => a["index"].toInt().compareTo(b["index"].toInt()));
+  await supabase.from("answers").insert(answers
+      .mapIndexed(
+          (i, e) => {"text": e, "index": i, "question_id": questions[i]["id"]})
+      .toList());
+
   await supabase
       .from("answers")
       .insert(answers.mapIndexed((i, e) => {"text": e, "index": i}).toList());

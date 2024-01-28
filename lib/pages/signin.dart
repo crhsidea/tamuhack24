@@ -34,6 +34,10 @@ class SigninPageState extends State<SigninPage> {
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextField(
+              decoration: InputDecoration(
+                fillColor: Color(0xFFE6E1C5),
+                focusColor: Color(0xFFBA2D0B),
+              ),
               controller: emailController,
             ),
           ),

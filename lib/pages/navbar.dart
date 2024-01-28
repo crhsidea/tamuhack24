@@ -40,7 +40,7 @@ class _MainScreenNavState extends State<MainScreenNav> {
               true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
           decoration: NavBarDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            colorBehindNavBar: Colors.white,
+            colorBehindNavBar: const Color(0xFF065A82),
           ),
           popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
