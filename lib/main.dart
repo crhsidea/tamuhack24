@@ -23,7 +23,6 @@ void main() async {
 
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -34,7 +33,9 @@ class MyApp extends StatelessWidget {
       title: 'JobJet',
       theme: ThemeData(
         fontFamily: "Rubik",
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan,
+        brightness: Brightness.light,
+        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'JobJet'),
