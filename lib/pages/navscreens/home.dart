@@ -59,13 +59,16 @@ class _HomePageState extends State<HomePage> {
                   width: 100, height: 100, child: CircularProgressIndicator());
             }
             print(snapshot.data);
-            return SizedBox(
-              // height: MediaQuery.of(context).size.height * 0.5,
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                children:
-                    snapshot.data!.map((x) => JobListing(listing: x)).toList(),
+            return Expanded(
+              child: SizedBox(
+                // height: MediaQuery.of(context).size.height * 0.5,
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  children: snapshot.data!
+                      .map((x) => JobListing(listing: x))
+                      .toList(),
+                ),
               ),
             );
           })

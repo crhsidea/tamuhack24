@@ -12,31 +12,30 @@ class AddListingPage extends StatefulWidget {
 class AddListingPageState extends State<AddListingPage> {
   final formKey = GlobalKey<FormState>();
   int numQuestions = 1;
-	
-	TextEditingController name = TextEditingController();
-	TextEditingController hours = TextEditingController();
-	TextEditingController location = TextEditingController();
-	TextEditingController desc = TextEditingController();
-	TextEditingController salary = TextEditingController();
-	List<String> otherAns = [];
 
-	List<Widget> genList(int count) {
-		List<Widget> out = [];
-		for (int i = 0; i < count; i++) {
-			out.add(
-				TextFormField(
-					onChanged: (text) {
-						otherAns[i] = text;
-					},
-					decoration: const InputDecoration(
-						border: UnderlineInputBorder(),
-						labelText:
-								'Something scintillating you\'d love to learn',
-					),
-			));
-		}
-		return out;
-	}
+  TextEditingController name = TextEditingController();
+  TextEditingController hours = TextEditingController();
+  TextEditingController location = TextEditingController();
+  TextEditingController desc = TextEditingController();
+  TextEditingController salary = TextEditingController();
+  List<String> otherAns = [];
+
+  List<Widget> genList(int count) {
+    List<Widget> out = [];
+    for (int i = 0; i < count; i++) {
+      out.add(TextFormField(
+        onChanged: (text) {
+          otherAns[i] = text;
+        },
+        decoration: const InputDecoration(
+          border: UnderlineInputBorder(),
+          labelText: 'Something scintillating you\'d love to learn',
+        ),
+      ));
+    }
+    return out;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,14 +59,14 @@ class AddListingPageState extends State<AddListingPage> {
                   child: Column(
                       children: (<Widget>[
                                     TextFormField(
-																			controller: name,
+                                      controller: name,
                                       decoration: const InputDecoration(
                                         border: UnderlineInputBorder(),
                                         labelText: 'Position name',
                                       ),
                                     ),
                                     TextFormField(
-																			controller: hours,
+                                      controller: hours,
                                       keyboardType: TextInputType.number,
                                       decoration: const InputDecoration(
                                         border: UnderlineInputBorder(),
@@ -75,7 +74,7 @@ class AddListingPageState extends State<AddListingPage> {
                                       ),
                                     ),
                                     TextFormField(
-																			controller: salary,
+                                      controller: salary,
                                       keyboardType: TextInputType.number,
                                       decoration: const InputDecoration(
                                         border: UnderlineInputBorder(),
@@ -83,14 +82,14 @@ class AddListingPageState extends State<AddListingPage> {
                                       ),
                                     ),
                                     TextFormField(
-																			controller: location,
+                                      controller: location,
                                       decoration: const InputDecoration(
                                         border: UnderlineInputBorder(),
                                         labelText: 'Location',
                                       ),
                                     ),
                                     TextFormField(
-																			controller: desc,
+                                      controller: desc,
                                       decoration: const InputDecoration(
                                           border: UnderlineInputBorder(),
                                           labelText: 'Job description'),
@@ -106,15 +105,15 @@ class AddListingPageState extends State<AddListingPage> {
                                         ),
                                         onChanged: (t) {
                                           setState(() {
-                                            numQuestions = int.parse(t); 
-																						while (otherAns.length < numQuestions) {
-																							otherAns.add("");
-																						}
+                                            numQuestions = int.parse(t);
+                                            while (otherAns.length <
+                                                numQuestions) {
+                                              otherAns.add("");
+                                            }
                                           });
                                         })
                                   ] +
-																			genList(numQuestions)
-																	)
+                                  genList(numQuestions))
                               .map((e) => Padding(
                                   padding: EdgeInsets.only(bottom: 50),
                                   child: e) as Widget)
@@ -122,15 +121,14 @@ class AddListingPageState extends State<AddListingPage> {
                           <Widget>[
                             ElevatedButton(
                                 onPressed: () async {
-																	await addListing(
-																		title: name.text,
-																		content: desc.text,
-																		location: location.text,
-																		hours: int.parse(hours.text),
-																		salary: int.parse(salary.text),
-																		questions: otherAns
-																	);
-																},
+                                  await addListing(
+                                      title: name.text,
+                                      content: desc.text,
+                                      location: location.text,
+                                      hours: int.parse(hours.text),
+                                      salary: int.parse(salary.text),
+                                      questions: otherAns);
+                                },
                                 style: ElevatedButton.styleFrom(
                                   minimumSize: Size(
                                       MediaQuery.of(context).size.width, 75),
@@ -164,23 +162,23 @@ class AddListingPageState extends State<AddListingPage> {
                                   ),
                                 )),
                           ]))),
-													 Container(
-                  height: 48,
-                  child: WaveWidget(
-                    config: CustomConfig(
-                      colors: [
-                        Colors.indigo[400]!,
-                        Colors.indigo[300]!,
-                        Colors.indigo[200]!,
-                        Colors.indigo[100]!
-                      ],
-                      durations: [18000, 8000, 5000, 12000],
-                      heightPercentages: [0.65, 0.66, 0.68, 0.84],
-                    ),
-                    size: Size(double.infinity, double.infinity),
-                    waveAmplitude: 1,
-                  ),
-                ),
+          Container(
+            height: 48,
+            child: WaveWidget(
+              config: CustomConfig(
+                colors: [
+                  Colors.indigo[400]!,
+                  Colors.indigo[300]!,
+                  Colors.indigo[200]!,
+                  Colors.indigo[100]!
+                ],
+                durations: [18000, 8000, 5000, 12000],
+                heightPercentages: [0.65, 0.66, 0.68, 0.84],
+              ),
+              size: Size(double.infinity, double.infinity),
+              waveAmplitude: 1,
+            ),
+          ),
         ]))));
   }
 }
