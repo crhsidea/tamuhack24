@@ -31,7 +31,7 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
             ? ListView(
                 children: snapshot.data!
                     .map(
-                      (e) => Container(color: e.accepted? Colors.green: Colors.red, 
+                      (e) => Container(
                       child:ApplicationStatus(
 												application: e
                       ),

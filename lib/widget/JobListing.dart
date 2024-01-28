@@ -26,7 +26,7 @@ class JobListingState extends State<JobListing> {
             child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color(0xFF0AFFED),
+                  color: Color(0xFFE6E1C5),
                 ),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,10 +75,14 @@ class JobListingState extends State<JobListing> {
                                   builder: (BuildContext context,
                                       AsyncSnapshot<List<Image>> snapshot) {
                                     if (!snapshot.hasData)
-                                      return SizedBox(
-                                          height: 100,
-                                          width: 100,
-                                          child: CircularProgressIndicator());
+                                      return Center(
+                                          child: SizedBox(
+                                              height: 100,
+                                              width: 100,
+                                              child:
+                                                  CircularProgressIndicator()));
+																		if (snapshot.data!.length == 0)
+																			return SizedBox(width:1, height:1);
                                     return ListView(
                                         shrinkWrap: true,
                                         scrollDirection: Axis.horizontal,
@@ -95,9 +99,12 @@ class JobListingState extends State<JobListing> {
                           ],
                         ),
                       ),
-                      Text(widget.listing.content,
-                          style: TextStyle(
-                              color: Color(0xFF065A82), fontSize: 22.0)),
+                      Padding(
+                        padding: EdgeInsets.all(24.0),
+                        child: Text(widget.listing.content,
+                            style: TextStyle(
+                                color: Color(0xFF065A82), fontSize: 22.0)),
+                      ),
                       if (widget.listing.user_id ==
                           supabase.auth.currentUser!.id)
                         TextButton(

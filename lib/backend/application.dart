@@ -13,7 +13,7 @@ class Application {
   List<String> questions;
   String user_name;
   final DateTime created_at;
-  final bool accepted;
+  final bool? accepted;
   String resume_link;
 
   Application({
@@ -53,9 +53,13 @@ Application ApplicationFromJSON(Map<String, dynamic> d) {
 }
 
 Future<void> acceptApplication(String id, bool accepted) async {
-  await supabase
+	print(id);
+  var stuff = await supabase
       .from("applications")
-      .update({"accepted": accepted}).eq("id", id);
+      .update({"accepted": accepted})
+			.eq("id", id)
+			.select();
+	print(stuff);
 }
 
 Future<void> addApplication({
@@ -95,8 +99,10 @@ Future<List<Application>> getApplicationsByListing(String uid) async {
 
   List<Application> list_data = [];
   for (Map<String, dynamic> json in data) {
+		print("Start fromjson");
     Application a = ApplicationFromJSON(json);
 
+		print("end fromjson");
     List<Map<String, dynamic>> questions = await supabase
         .from("questions")
         .select("(index, text)")
@@ -111,10 +117,10 @@ Future<List<Application>> getApplicationsByListing(String uid) async {
       var answer1 = await supabase
           .from("answers")
           .select("(user_id, text)")
-          .eq("question_id", question["id"]);
+          .eq("question_id", question["id"].toString());
       var answer = answer1[0];
-      user_id = answer["user_id"];
-      answers.add(answer["text"]);
+      user_id = answer["user_id"].toString();
+      answers.add(answer["text"].toString());
     }
     print(answers);
     a.questions = questions_s;
@@ -125,13 +131,20 @@ Future<List<Application>> getApplicationsByListing(String uid) async {
         .select("(user_id, full_name)")
         .eq('id', user_id);
 
-    a.user_name = user[0]["full_name"];
+		print("getting uname");
+    a.user_name = user[0]["full_name"].toString();
+		print("got uname");
 
+		if ((await supabase.storage.from("resumes").list(path:"user-${supabase.auth.currentUser!.id}")).length > 0) {
     a.resume_link = await supabase.storage.from('resumes').createSignedUrl(
-        'user-${supabase.auth.currentUser?.id}/resume.pdf', 600);
+        'user-${supabase.auth.currentUser!.id}/resume.pdf', 600);
+		}
 
+		print("ad");
     list_data.add(a);
+		print("fin");
   }
+	print("returning");
   return list_data;
 }
 

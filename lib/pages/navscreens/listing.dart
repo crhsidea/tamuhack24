@@ -25,11 +25,11 @@ class _ListingsPageState extends State<ListingsPage> {
                   alignment: Alignment.centerLeft,
                   child: Padding(
                       padding: EdgeInsets.only(left: 16.0, top: 16.0),
-                      child: Text("Your listings",
-                          style: TextStyle(
-                            fontSize: 56.0,
-                            fontWeight: FontWeight.bold,
-                          ))),
+											child: Align(
+												alignment: Alignment.centerLeft,
+												child: Text("Listings", style: TextStyle(color: Color(0xFF065A82), fontWeight: FontWeight.bold, fontSize: 64.0)),
+											),
+									)
                 ),
 								Padding(
 									padding: EdgeInsets.all(24.0),

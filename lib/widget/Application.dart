@@ -11,10 +11,10 @@ class ApplicationView extends StatefulWidget {
 }
 
 class ApplicationViewState extends State<ApplicationView> {
+	String status = "";
+	Color statusColor = Colors.black;
   @override
   Widget build(BuildContext context) {
-    print(widget.application.user_name);
-    print(widget.application.resume_link);
     return Card(
       child: Column(
         children: [
@@ -23,6 +23,12 @@ class ApplicationViewState extends State<ApplicationView> {
               "Name: ${widget.application.user_name}",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
+						subtitle: Text(
+							"Status: $status",
+							style: TextStyle(
+								color: statusColor
+							)
+						)
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -84,7 +90,10 @@ class ApplicationViewState extends State<ApplicationView> {
               ElevatedButton(
                   onPressed: () async {
                     await acceptApplication(widget.application.id, false);
-                    setState(() {});
+                    setState(() {
+											status = "rejected";
+											statusColor = Colors.red;
+										});
                   },
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(175, 90),
@@ -97,7 +106,10 @@ class ApplicationViewState extends State<ApplicationView> {
               ElevatedButton(
                   onPressed: () async {
                     await acceptApplication(widget.application.id, true);
-                    setState(() {});
+                    setState(() {
+											status= "accepted";
+											statusColor = Colors.green;
+										});
                   },
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(175, 90),

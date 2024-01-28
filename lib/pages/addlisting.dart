@@ -20,9 +20,9 @@ class AddListingPageState extends State<AddListingPage> {
   TextEditingController desc = TextEditingController();
   TextEditingController salary = TextEditingController();
   List<String> otherAns = [];
-	List<XFile> images = [];
+  List<XFile> images = [];
 
-	final ImagePicker picker = ImagePicker();
+  final ImagePicker picker = ImagePicker();
 
   List<Widget> genList(int count) {
     List<Widget> out = [];
@@ -50,11 +50,30 @@ class AddListingPageState extends State<AddListingPage> {
                     children: [
           Align(
               alignment: Alignment.topLeft,
-              child: Padding(
-                  padding: EdgeInsets.only(left: 16.0),
-                  child: Text("Add listing",
-                      style: TextStyle(
-                          fontSize: 64.0, fontWeight: FontWeight.bold)))),
+              child: 
+									 Container(
+											decoration: BoxDecoration(
+											borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight:Radius.circular(20)),
+											color: Color(0xFF065A82),
+										),
+										width: MediaQuery.of(context).size.width,
+										height: 400,
+										child: Padding(
+											padding: EdgeInsets.all(16.0),
+											child: Column(
+											 crossAxisAlignment: CrossAxisAlignment.start,
+											 children:	[
+												Text("New Listing", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 64.0)),
+												SizedBox(
+													width: 100,
+													height: 100,
+													child: Image.asset("images/ftpen.png")
+												)
+											]
+											)
+										),
+								),
+					),
           SizedBox(height: 50),
           Padding(
               padding: EdgeInsets.all(32.0),
@@ -123,24 +142,25 @@ class AddListingPageState extends State<AddListingPage> {
                                   child: e) as Widget)
                               .toList() +
                           <Widget>[
-														ElevatedButton(
-																onPressed: () async {
-																	images = await picker.pickMultiImage();
-																},
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(
-                                      MediaQuery.of(context).size.width-250, 30),
-                                  backgroundColor: Color(0xFF91A6FF),
+                            ElevatedButton(
+                              onPressed: () async {
+                                images = await picker.pickMultiImage();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(
+                                    MediaQuery.of(context).size.width - 250,
+                                    30),
+                                backgroundColor: Color(0xFF91A6FF),
+                              ),
+                              child: Text(
+                                "Add some images?",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 24.0,
                                 ),
-																child: Text(
-																	"Add some images?",
-																	style: TextStyle(
-																		color: Colors.white,
-																		fontWeight: FontWeight.w300,
-																		fontSize: 24.0,
-																),
-															),
-														),
+                              ),
+                            ),
                             ElevatedButton(
                                 onPressed: () async {
                                   String id = await addListing(
@@ -150,9 +170,9 @@ class AddListingPageState extends State<AddListingPage> {
                                       hours: int.parse(hours.text),
                                       salary: double.parse(salary.text),
                                       questions: otherAns);
-																	for (XFile image in images) {
-																		await uploadImage(id, image);
-																	}
+                                  for (XFile image in images) {
+                                    await uploadImage(id, image);
+                                  }
                                   Navigator.of(context).pop();
                                 },
                                 style: ElevatedButton.styleFrom(

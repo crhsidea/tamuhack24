@@ -78,25 +78,25 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     PersistentBottomNavBarItem(
       icon: Icon(Icons.home),
       title: ("Home"),
-      //activeColorPrimary: CupertinoColors.activeBlue,
-      //inactiveColorPrimary: CupertinoColors.systemGrey,
+      activeColorPrimary: Color(0xFF91A6FF),
+      inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(Icons.edit),
       title: ("Apps"),
-      activeColorPrimary: CupertinoColors.activeBlue,
+      activeColorPrimary: Color(0xFF91A6FF),
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(Icons.checklist),
       title: ("Listings"),
-      activeColorPrimary: CupertinoColors.activeBlue,
+      activeColorPrimary: Color(0xFF91A6FF),
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(Icons.account_circle),
       title: ("Profile"),
-      activeColorPrimary: CupertinoColors.activeBlue,
+      activeColorPrimary: Color(0xFF91A6FF),
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
   ];

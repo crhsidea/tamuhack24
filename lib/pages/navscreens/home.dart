@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.only(top: 32.0, left: 32.0, bottom: 16.0),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Text("Home", style: TextStyle(color: Color(0xFF065A82), fontWeight: FontWeight.bold, fontSize: 64.0)),
+          child: Text("JobJet", style: TextStyle(color: Color(0xFF065A82), fontWeight: FontWeight.bold, fontSize: 64.0)),
         ),
       ),
       Padding(
