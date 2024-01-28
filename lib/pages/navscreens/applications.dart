@@ -1,3 +1,5 @@
+import 'package:flacktest/backend/application.dart';
+import 'package:flacktest/pages/applyform.dart';
 import 'package:flutter/material.dart';
 
 class ApplicationsPage extends StatefulWidget {
@@ -10,6 +12,9 @@ class ApplicationsPage extends StatefulWidget {
 class _ApplicationsPageState extends State<ApplicationsPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Applications Page"));
+    return TextButton(
+        onPressed: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ApplyForm())),
+        child: Text("Application test button"));
   }
 }
