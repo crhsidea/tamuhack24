@@ -15,12 +15,13 @@ class _HomePageState extends State<HomePage> {
     return Center(
         child: Column(children: [
       Padding(
-          padding: EdgeInsets.only(top: 32.0, left: 32.0, bottom: 16.0),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text("Home",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 64.0)),
-          )),
+        padding: EdgeInsets.only(top: 32.0, left: 32.0, bottom: 16.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text("Home",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 64.0)),
+        ),
+      ),
       Padding(
         padding: EdgeInsets.all(32.0),
         child: SearchAnchor(
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             }
             print(snapshot.data);
             return SizedBox(
-              height: 200,
+              // height: MediaQuery.of(context).size.height * 0.5,
               child: ListView(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,

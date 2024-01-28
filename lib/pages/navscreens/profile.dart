@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -44,10 +47,27 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               TextButton(
                   onPressed: () async {
+                    FilePickerResult? result =
+                        await FilePicker.platform.pickFiles();
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                      final String path =
+                          await supabase.storage.from('resumes').upload(
+                                'user-${supabase.auth.currentUser?.id}/resume.pdf',
+                                file,
+                                fileOptions: const FileOptions(
+                                    cacheControl: '3600', upsert: false),
+                              );
+                    }
+                  },
+                  child: Text("Upload resume!")),
+              TextButton(
+                  onPressed: () async {
                     await supabase.auth.signOut();
                     Navigator.of(context).pop();
                   },
-                  child: Text("Sign out"))
+                  child: Text("Sign out")),
             ],
           )
         ],
