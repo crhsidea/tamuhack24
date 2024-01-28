@@ -58,14 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // TextButton(child: const Text("testing"), 
-            // onPressed: () {
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const JobForm()),
-            //   );
-            // },
-            // ),
+            TextButton(child: const Text("testing"), 
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const JobForm()),
+              );
+            },
+            ),
 						const Text("Welcome to Scholarly"),
 						TextButton(
 							child: const Text("Sign up"),
