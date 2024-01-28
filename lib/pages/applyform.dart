@@ -3,6 +3,8 @@ import 'package:flacktest/backend/application.dart';
 import 'package:flacktest/backend/joblisting.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -131,6 +133,22 @@ class _ApplyFormState extends State<ApplyForm> {
                         color: Colors.white,
                       ),
                     )),
+                Container(
+                    height: 54,
+                    child: WaveWidget(
+                      config: CustomConfig(
+                        colors: [
+                          Colors.indigo[400]!,
+                          Colors.indigo[300]!,
+                          Colors.indigo[200]!,
+                          Colors.indigo[100]!
+                        ],
+                        durations: [18000, 8000, 5000, 12000],
+                        heightPercentages: [0.65, 0.66, 0.68, 0.84],
+                      ),
+                      size: Size(double.infinity, double.infinity),
+                      waveAmplitude: 1.3,
+                    ))
               ],
             ));
           }),
