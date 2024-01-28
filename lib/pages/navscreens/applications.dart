@@ -25,14 +25,24 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
           return CircularProgressIndicator();
         }
 
-        return ListView(
-          children: snapshot.data!
-              .map(
-                (e) => ApplicationStatus(
-                    status: e.accepted, jobName: e.listing_id),
+        return snapshot.data!.length > 0
+            ? ListView(
+                children: snapshot.data!
+                    .map(
+                      (e) => ApplicationStatus(
+                        status: e.accepted,
+                        jobName: e.listing_id,
+                      ),
+                    )
+                    .toList(),
               )
-              .toList(),
-        );
+            : Center(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                      "Apply for a job, then come back to check your application status"),
+                ),
+              );
       },
     );
   }

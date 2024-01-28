@@ -28,23 +28,30 @@ class _ProfilePageState extends State<ProfilePage> {
                 backgroundImage: NetworkImage(
                     "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/700?cb=20210806124552"),
               ),
+              /*
               Text(
                 "Sus Amogus",
                 style: TextStyle(fontSize: 24),
               )
+              */
+              FutureBuilder(
+                future: supabase
+                    .from("profiles")
+                    .select('(id, full_name)')
+                    .match({'id': supabase.auth.currentUser!.id}),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Text("...", style: TextStyle(fontSize: 24));
+                  }
+                  return Text(snapshot.data![0]['full_name'],
+                      style: TextStyle(fontSize: 24));
+                },
+              ),
             ],
           ),
           Column(
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Your name',
-                  ),
-                ),
-              ),
               TextButton(
                   onPressed: () async {
                     FilePickerResult? result =
