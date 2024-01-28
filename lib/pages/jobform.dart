@@ -49,12 +49,11 @@ class JobFormState extends State<JobForm> {
                       MaterialPageRoute(builder: (context) => MainScreenNav()));
                 },
                 child: const Text("Submit job")),
-                // Container(const WidgetSpan(child: Icon(
-                //   (title && descript && hours)? Icons.check: Icons.sentiment_dissatisfied,
-                //   size: 14, 
-                //   color: (title && descript && hours)? Colors.green.shade600: Colors.red.shade300
-                // ))) 
-                
+            // Container(const WidgetSpan(child: Icon(
+            //   (title && descript && hours)? Icons.check: Icons.sentiment_dissatisfied,
+            //   size: 14,
+            //   color: (title && descript && hours)? Colors.green.shade600: Colors.red.shade300
+            // )))
           ])),
     ));
   }
