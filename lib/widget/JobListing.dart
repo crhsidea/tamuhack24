@@ -51,7 +51,7 @@ class JobListingState extends State<JobListing> {
           child: Row(
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width - 8,
+                width: MediaQuery.of(context).size.width - 64,
                 height: 250,
                 child: ListView(
                     shrinkWrap: true,

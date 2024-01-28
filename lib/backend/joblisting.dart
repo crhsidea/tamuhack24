@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:collection/collection.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -76,7 +77,7 @@ Listing ListingFromJSON(Map<String, dynamic> d) {
     title: title,
     questions: [],
     images: [],
-    salary: 0,
+    salary: salary,
   );
   print(a);
   return a;
@@ -99,7 +100,7 @@ Future<void> addListing({
   }).select();
 
 	await supabase.from("questions")
-			.insert(questions.map((e) => { "listing_id": data[0]["id"], "text": e }).toList());
+			.insert(questions.mapIndexed((i,e ) => { "listing_id": data[0]["id"], "text": e, "index": i }).toList());
 }
 
 Future<List<Listing>> getListingsByUser(String? uid) async {
@@ -121,19 +122,22 @@ Future<List<Listing>> getAllListings() async {
     print(d);
     var l = ListingFromJSON(d);
     print(l);
+		print("Getting images");
     var images =
         await supabase.from("images").select("id").eq("listing_id", l.id);
     List<String> images_s = images.map((x) => x["id"].toString()).toList();
     l.images = images_s;
 
-    list_data.add(l);
 
+		print("Getting questions");
     var questions = await supabase
         .from("questions")
         .select("(index, text)")
         .eq("listing_id", l.id);
+		print(questions);
     questions.sort((a, b) => a["index"].toInt().compareTo(b["index"].toInt()));
     l.questions = questions.map((x) => x["text"].toString()).toList();
+    list_data.add(l);
   }
   return list_data;
 }
