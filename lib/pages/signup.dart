@@ -72,6 +72,10 @@ class SignupPageState extends State<SignupPage> {
                     email: emailController.text,
                     password: passwordController.text,
                   );
+                  await supabase.from("profiles").update({
+                    'username': supabase.auth.currentUser!.email!.split("@")[0]
+                  }).match({'id': supabase.auth.currentUser?.id});
+
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MainScreenNav()));
                 } on AuthException catch (e) {

@@ -1,6 +1,11 @@
 import 'package:flacktest/backend/application.dart';
+import 'package:flacktest/backend/joblisting.dart';
 import 'package:flacktest/pages/applyform.dart';
+import 'package:flacktest/widget/ApplicationCard.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+final supabase = Supabase.instance.client;
 
 class ApplicationsPage extends StatefulWidget {
   const ApplicationsPage({super.key});
@@ -12,9 +17,23 @@ class ApplicationsPage extends StatefulWidget {
 class _ApplicationsPageState extends State<ApplicationsPage> {
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ApplyForm())),
-        child: Text("Application test button"));
+    return FutureBuilder(
+      future: getAllApplicationsByUser(supabase.auth.currentUser!.id),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<Application>> snapshot) {
+        if (!snapshot.hasData) {
+          return CircularProgressIndicator();
+        }
+
+        return ListView(
+          children: snapshot.data!
+              .map(
+                (e) => ApplicationStatus(
+                    status: e.accepted, jobName: e.listing_id),
+              )
+              .toList(),
+        );
+      },
+    );
   }
 }
