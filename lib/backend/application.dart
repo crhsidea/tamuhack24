@@ -91,7 +91,10 @@ Future<List<Application>> getApplicationsByListing(String uid) async {
 		List<Map<String, dynamic>> answers = await supabase.from("answers").select("(index, text")
 				.eq("user_id", supabase.auth.currentUser!.id)
 				.eq("listing_id", uid);
-		print(answers);
+		answers.sort((a, b) => a["index"].toInt().compareTo()(b["index"].toInt()));
+		List<String> answers_s = answers.map((e) => e["text"].toString()).toList();
+		print(answers_s);
+		a.answers = answers_s;
 		list_data.add(a);
 	}
   return list_data;
