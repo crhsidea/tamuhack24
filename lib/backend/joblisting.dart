@@ -51,7 +51,10 @@ Listing ListingFromJSON(Map<String, dynamic> d) {
 	var title = d["title"];
 	var questions = d["questions"];
 	print(questions);
-	var dt = DateTime.parse("2024-01-27T21:02:29");
+	print(d["created_on"]);
+	DateTime dt;
+	if (d["created_on"] == null) dt = DateTime.now();
+	else dt = DateTime.parse(d["created_on"]!);
 	print("eccessed");
 	
 	var a =  Listing(
