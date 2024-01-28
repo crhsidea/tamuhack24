@@ -1,6 +1,10 @@
 import 'package:dynamic_form/dynamic_form.dart';
+import 'package:flacktest/backend/application.dart';
 import 'package:flacktest/backend/joblisting.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+final supabase = Supabase.instance.client;
 
 class ApplyForm extends StatefulWidget {
   const ApplyForm({super.key, required this.listing});
@@ -27,7 +31,12 @@ class _ApplyFormState extends State<ApplyForm> {
               return const Center(child: CircularProgressIndicator());
             }
             List<TextElement> formTextItems = snapshot.data!
-                .map((q) => TextElement(id: q["index"], label: q["text"]))
+                .map(
+                  (q) => TextElement(
+                    id: q["index"].toString(),
+                    label: q["text"],
+                  ),
+                )
                 .toList();
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -42,8 +51,15 @@ class _ApplyFormState extends State<ApplyForm> {
                   ],
                 ),
                 TextButton(
-                    onPressed: () => print(controller.getAllValues()),
-                    child: Text("Print values to debug console"))
+                  onPressed: () async {
+                    print(controller.getAllValues());
+                    await addApplication(
+                        listing_id: widget.listing.id,
+                        answers: controller.getAllValues());
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Submit form"),
+                )
               ],
             );
           }),
