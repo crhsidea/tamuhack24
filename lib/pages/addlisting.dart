@@ -17,6 +17,7 @@ class AddListingPageState extends State<AddListingPage> {
 	TextEditingController hours = TextEditingController();
 	TextEditingController location = TextEditingController();
 	TextEditingController desc = TextEditingController();
+	TextEditingController salary = TextEditingController();
 	List<String> otherAns = [];
 
 	List<Widget> genList(int count) {
@@ -74,6 +75,14 @@ class AddListingPageState extends State<AddListingPage> {
                                       ),
                                     ),
                                     TextFormField(
+																			controller: salary,
+                                      keyboardType: TextInputType.number,
+                                      decoration: const InputDecoration(
+                                        border: UnderlineInputBorder(),
+                                        labelText: 'Hourly salary',
+                                      ),
+                                    ),
+                                    TextFormField(
 																			controller: location,
                                       decoration: const InputDecoration(
                                         border: UnderlineInputBorder(),
@@ -118,6 +127,7 @@ class AddListingPageState extends State<AddListingPage> {
 																		content: desc.text,
 																		location: location.text,
 																		hours: int.parse(hours.text),
+																		salary: int.parse(salary.text),
 																		questions: otherAns
 																	);
 																},
