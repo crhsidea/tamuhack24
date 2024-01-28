@@ -25,13 +25,15 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
           return CircularProgressIndicator();
         }
 
+        print(snapshot.data);
+
         return snapshot.data!.length > 0
             ? ListView(
                 children: snapshot.data!
                     .map(
                       (e) => ApplicationStatus(
                         status: e.accepted,
-                        jobName: e.listing_id,
+                        jobName: e.listing_id.toString(),
                       ),
                     )
                     .toList(),

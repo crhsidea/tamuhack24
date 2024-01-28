@@ -24,7 +24,10 @@ class JobListingState extends State<JobListing> {
             builder: (context) => ApplyForm(listing: widget.listing))),
         child: Card(
             child: Container(
-                color: Color(0xFF0AFFED),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color(0xFF0AFFED),
+                ),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

@@ -54,35 +54,87 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Column(
             children: [
-              TextButton(
-                  onPressed: () async {
-                    FilePickerResult? result =
-                        await FilePicker.platform.pickFiles();
+              // FutureBuilder(
+              //   future: supabase.storage.from('resumes').list(),
+              //   builder: (BuildContext context,
+              //       AsyncSnapshot<List<FileObject>> snapshot) {
+              //     if (!snapshot.hasData) {
+              //       return Container();
+              //     }
 
-                    if (result != null) {
-                      File file = File(result.files.single.path!);
-                      final String path =
-                          await supabase.storage.from('resumes').upload(
-                                'user-${supabase.auth.currentUser?.id}/resume.pdf',
-                                file,
-                                fileOptions: const FileOptions(
-                                    cacheControl: '3600', upsert: false),
-                              );
-                    }
-                  },
-                  child: Text("Upload resume!")),
-              TextButton(
+              //     for (FileObject file in snapshot.data!.toList()) {
+              //       if (file.name ==
+              //           'user-${supabase.auth.currentUser?.id}/resume.pdf') {
+              //         return Container();
+              //       }
+
+              //       return Text("SUS");
+              //     }
+
+              //     return Container();
+              //   },
+              // ),
+              SizedBox(
+                height: 42,
+                width: 200,
+                child: TextButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll<Color>(Colors.lightBlue)),
+                    onPressed: () async {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles();
+
+                      if (result != null) {
+                        File file = File(result.files.single.path!);
+                        final String path =
+                            await supabase.storage.from('resumes').upload(
+                                  'user-${supabase.auth.currentUser?.id}/resume.pdf',
+                                  file,
+                                  fileOptions: const FileOptions(
+                                      cacheControl: '3600', upsert: false),
+                                );
+                      }
+                    },
+                    child: Text(
+                      "Upload resume!",
+                      style: TextStyle(color: Colors.white),
+                    )),
+              ),
+              SizedBox(height: 12.5),
+              SizedBox(
+                height: 42,
+                width: 200,
+                child: TextButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll<Color>(Colors.lightBlue)),
                   onPressed: () async {
                     await supabase.auth.signOut();
                     Navigator.of(context).pop();
                   },
-                  child: Text("Sign out")),
-							TextButton(
-								child: Text("Test images"),
-								onPressed: () async {
-									await getImagesForListing("");
-								}
-							)
+                  child: Text(
+                    "Sign out",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              SizedBox(height: 12.5),
+              SizedBox(
+                height: 42,
+                width: 200,
+                child: TextButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll<Color>(Colors.lightBlue)),
+                    child: Text(
+                      "Test images",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () async {
+                      await getImagesForListing("");
+                    }),
+              )
             ],
           )
         ],
