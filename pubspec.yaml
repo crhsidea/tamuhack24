@@ -46,6 +46,7 @@ dependencies:
   wave: ^0.2.2
   image_picker: ^1.0.7
   uuid: ^4.3.3
+  url_launcher: ^6.2.4
 
 dev_dependencies:
   flutter_test:

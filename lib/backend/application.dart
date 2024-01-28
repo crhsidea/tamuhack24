@@ -11,9 +11,10 @@ class Application {
   final String user_id;
   List<String> answers;
   List<String> questions;
-  final String user_name;
+  String user_name;
   final DateTime created_at;
   final bool accepted;
+  String resume_link;
 
   Application({
     required this.id,
@@ -24,6 +25,7 @@ class Application {
     required this.created_at,
     required this.accepted,
     required this.questions,
+    required this.resume_link,
   });
 
   Map<String, dynamic> toJSON() {
@@ -45,6 +47,7 @@ Application ApplicationFromJSON(Map<String, dynamic> d) {
       created_at: DateTime.parse(d["created_at"].toString()),
       accepted: d["accepted"],
       user_name: "",
+      resume_link: "",
       questions: [],
       answers: []);
 }
@@ -116,6 +119,17 @@ Future<List<Application>> getApplicationsByListing(String uid) async {
     print(answers);
     a.questions = questions_s;
     a.answers = answers;
+
+    List<Map<String, dynamic>> user = await supabase
+        .from("profiles")
+        .select("(user_id, full_name)")
+        .eq('id', user_id);
+
+    a.user_name = user[0]["full_name"];
+
+    a.resume_link = await supabase.storage.from('resumes').createSignedUrl(
+        'user-${supabase.auth.currentUser?.id}/resume.pdf', 600);
+
     list_data.add(a);
   }
   return list_data;
