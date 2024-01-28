@@ -87,7 +87,7 @@ Future<String> addListing({
   required String location,
   required int hours,
   required List<String> questions,
-  required int salary,
+  required double salary,
 }) async {
   var data = await supabase.from("joblistings").insert({
     "title": title,

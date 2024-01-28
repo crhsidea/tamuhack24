@@ -148,7 +148,7 @@ class AddListingPageState extends State<AddListingPage> {
                                       content: desc.text,
                                       location: location.text,
                                       hours: int.parse(hours.text),
-                                      salary: int.parse(salary.text),
+                                      salary: double.parse(salary.text),
                                       questions: otherAns);
 																	for (XFile image in images) {
 																		await uploadImage(id, image);

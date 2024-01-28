@@ -53,9 +53,14 @@ class _ApplyFormState extends State<ApplyForm> {
                 TextButton(
                   onPressed: () async {
                     print(controller.getAllValues());
+										try {
                     await addApplication(
                         listing_id: widget.listing.id,
                         answers: controller.getAllValues());
+										} on PostgrestException catch (e) {
+											print("oops... ${e.message}");
+											print("anyways...");
+										}
                     Navigator.pop(context);
                   },
                   child: const Text("Submit form"),
