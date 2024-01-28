@@ -40,7 +40,7 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
               style: TextStyle(
                   color: Color(0xFF065A82),
                   fontWeight: FontWeight.bold,
-                  fontSize: 64.0)),
+                  fontSize: 56.0)),
         ),
       ),
       TextButton(onPressed: () => setState(() {}), child: Text("Refresh")),
