@@ -30,8 +30,8 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
-            child: Column(children: [
+    return Center(
+        child: Column(children: [
       Padding(
         padding: EdgeInsets.only(top: 32.0, left: 32.0, bottom: 16.0),
         child: Align(
@@ -43,39 +43,38 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
                   fontSize: 64.0)),
         ),
       ),
-			Expanded(
-				child:
-					FutureBuilder(
-						future: getData(),
-						builder: (BuildContext context,
-								AsyncSnapshot<List<(Application, Listing)>> snapshot) {
-							if (!snapshot.hasData) {
-								return CircularProgressIndicator();
-							}
+      TextButton(onPressed: () => setState(() {}), child: Text("Refresh")),
+      Expanded(
+          child: FutureBuilder(
+        future: getData(),
+        builder: (BuildContext context,
+            AsyncSnapshot<List<(Application, Listing)>> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
 
-							print(snapshot.data);
+          print(snapshot.data);
 
-							return snapshot.data!.length > 0
-									? ListView(
-											children: snapshot.data!
-													.map((e) => Container(
-																child: ApplicationStatus(
-																	application: e.$1,
-																	listing: e.$2,
-																),
-															))
-													.toList(),
-										)
-									: Center(
-											child: SizedBox(
-												width: MediaQuery.of(context).size.width * 0.8,
-												child: Text(
-														"Apply for a job, then come back to check your application status"),
-											),
-										);
-						},
-					)
-			)
+          return snapshot.data!.length > 0
+              ? ListView(
+                  children: snapshot.data!
+                      .map((e) => Container(
+                            child: ApplicationStatus(
+                              application: e.$1,
+                              listing: e.$2,
+                            ),
+                          ))
+                      .toList(),
+                )
+              : Center(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Text(
+                        "Apply for a job, then come back to check your application status"),
+                  ),
+                );
+        },
+      ))
     ]));
   }
 }
