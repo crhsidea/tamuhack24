@@ -38,7 +38,7 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
                           jobName: e.listing_id.toString(),
                         ),
                       ),
-                    )
+											))
                     .toList(),
               )
             : Center(
