@@ -12,7 +12,7 @@ class Listing {
 	final String location;
 	final int hours;
 	final DateTime created_at;
-	final List<String> questions;
+	final List<dynamic> questions;
 
 	Listing({
 		required this.id,
@@ -25,17 +25,6 @@ class Listing {
 		required this.questions,
 	});
 	
-	Listing.fromJSON(Map<String, dynamic> d) :
-		id = d["id"],
-		user_id = d["user_id"],
-		content = d["content"],
-		created_at = DateTime.parse(d["created_at"]),
-		location = d["location"],
-		hours = d["hours"],
-		title = d["title"],
-		questions = json.decode(d["questions"])
-		;
-
 	Map<String, dynamic> toJSON() {
 		return {
 			"id": id,
@@ -48,7 +37,38 @@ class Listing {
 			"questions": json.encode(questions),
 		};
 	}
+}
 
+
+Listing ListingFromJSON(Map<String, dynamic> d) {
+	print("Delisting");
+	print(d["questions"]);
+	var id = d["id"];
+	var user_id = d["user_id"];
+	var content = d["content"];
+	var location = d["location"];
+	var hours = d["hours"];
+	var title = d["title"];
+	var questions = d["questions"];
+	print(questions);
+	print(d["created_on"]);
+	DateTime dt;
+	if (d["created_on"] == null) dt = DateTime.now();
+	else dt = DateTime.parse(d["created_on"]!);
+	print("eccessed");
+	
+	var a =  Listing(
+		id : id,
+		user_id : user_id,
+		content : content,
+		created_at : dt,
+		location : location,
+		hours : hours,
+		title : title,
+		questions : [],
+	);
+	print(a);
+	return a;
 }
 
 Future<void> addListing({
@@ -70,6 +90,22 @@ Future<List<Listing>> getListingsByUser(String? uid) async {
 			.from("joblistings")
 			.select('(id,user_id,created_on,title,content,location,hours)')
 			.eq("user_id", uid ?? supabase.auth.currentUser!.id);
-	List<Listing> list_data = data.map((d) => Listing.fromJSON(d)).toList();
+	List<Listing> list_data = data.map((d) => ListingFromJSON(d)).toList();
+	return list_data;
+}
+Future<List<Listing>> getAllListings() async {
+	List<Map<String, dynamic>> data = await supabase
+			.from("joblistings")
+			.select('(id,user_id,created_on,title,content,location,hours)');
+	print(data);
+	List<Listing> list_data = [];
+	for (Map<String, dynamic> d in data) {
+		print(d);
+		var l = ListingFromJSON(d);
+		print(l);
+		list_data.add(l);
+	}
+	print("DONE WITH LOOP");
+	print(list_data);
 	return list_data;
 }

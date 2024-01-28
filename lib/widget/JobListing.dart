@@ -1,34 +1,58 @@
-//job location
-//description
-//
 import 'package:flutter/material.dart';
 import 'package:flacktest/backend/joblisting.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+final supabase = Supabase.instance.client;
 
-class ListingCard extends StatefulWidget{
-  final String id;
-  const ListingCard({super.key, required this.id, required this.listing});
+class JobListing extends StatefulWidget{
+  const JobListing({super.key, required this.listing});
   final Listing listing;
   @override
-  State<ListingCard> createState()=> ListingCardState();
+  State<JobListing> createState()=> JobListingState();
 }
 
-class ListingCardState extends State<ListingCard>{
+class JobListingState extends State<JobListing>{
   @override
   Widget build(BuildContext context) {
       return Card(
-        clipBehavior: Clip.antiAlias,
-            elevation: 4.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+							Padding(
+								padding: EdgeInsets.all(24.0),
+								child: Text(
+									widget.listing.title,
+									style: TextStyle(
+										fontWeight: FontWeight.w500,
+										fontSize: 32.0
+									)
+								)
+							),
+							Row(
+								children: [ 
+									Padding(
+										padding: EdgeInsets.all(16.0),
+										child: SizedBox(
+											width: 200,
+											height: 200,
+											child: Image.network("https://picsum.photos/200"),
+										),
+									),
+									Padding(
+										padding: EdgeInsets.all(16.0),
+										child: SizedBox(
+											width: 200,
+											height: 200,
+											child: Image.network("https://picsum.photos/200"),
+										),
+									),
+								]
+							),
               Container(
                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.0),
                   ),
-                  child: Row(children: [Container(
+                  child: Row(
+										children: [Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100.0),
                               color: Colors.amber,
@@ -38,7 +62,7 @@ class ListingCardState extends State<ListingCard>{
                               horizontal: 12.0,
                             ),
                             child: Text(
-                              '\$${widget.listing.title}',
+                              widget.listing.title,
                               style: const TextStyle(
                                 color: Colors.blueGrey, 
                                 fontWeight: FontWeight.bold,
