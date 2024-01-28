@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flacktest/widget/Initals.dart';
 
 import 'package:flacktest/backend/joblisting.dart';
 
@@ -19,126 +20,96 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Column(
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.lightBlue,
-                radius: 50,
-                backgroundImage: NetworkImage(
-                    "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/700?cb=20210806124552"),
-              ),
-              /*
-              Text(
-                "Sus Amogus",
-                style: TextStyle(fontSize: 24),
-              )
-              */
-              FutureBuilder(
-                future: supabase
-                    .from("profiles")
-                    .select('(id, full_name)')
-                    .match({'id': supabase.auth.currentUser!.id}),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Text("...", style: TextStyle(fontSize: 24));
-                  }
-                  return Text(snapshot.data![0]['full_name'],
-                      style: TextStyle(fontSize: 24));
-                },
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              // FutureBuilder(
-              //   future: supabase.storage.from('resumes').list(),
-              //   builder: (BuildContext context,
-              //       AsyncSnapshot<List<FileObject>> snapshot) {
-              //     if (!snapshot.hasData) {
-              //       return Container();
-              //     }
+      child: 
+			FutureBuilder(
+				future: supabase.from("profiles").select("(full_name)"),
+				builder: (BuildContext context, AsyncSnapshot<List<Map<String,dynamic>>> snapshot) {
+					if (!snapshot.hasData)
+						return SizedBox(
+							height: 300,
+							width: 300,
+							child: CircularProgressIndicator()
+						);
+					String initals = snapshot.data![0]["full_name"]?.split(" ").map((e) => e[0]).join();
+					return Column(
+						mainAxisAlignment: MainAxisAlignment.start,
+						children: [
+							Column(
+								children: [
+											 Container(
+													decoration: BoxDecoration(
+													borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight:Radius.circular(20)),
+													color: Color(0xFF065A82),
+												),
+												width: MediaQuery.of(context).size.width,
+												height: 150,
+												child: Padding(
+													padding: EdgeInsets.all(16.0),
+													child: Column(
+													 crossAxisAlignment: CrossAxisAlignment.start,
+													 children:	[
+														Row(
+															children: [
+																Text("Profile", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 64.0)),
+																Spacer(),
+																InitialsAvatar(initials: "TA", backgroundColor: Color(0xFF91A6FF)),
+															]
+														),
+													]
+													)
+												),
+										),
+									SizedBox(
+										height: 42,
+										width: 200,
+										child: TextButton(
+												style: ButtonStyle(
+														backgroundColor:
+																MaterialStatePropertyAll<Color>(Colors.lightBlue)),
+												onPressed: () async {
+													FilePickerResult? result =
+															await FilePicker.platform.pickFiles();
 
-              //     for (FileObject file in snapshot.data!.toList()) {
-              //       if (file.name ==
-              //           'user-${supabase.auth.currentUser?.id}/resume.pdf') {
-              //         return Container();
-              //       }
-
-              //       return Text("SUS");
-              //     }
-
-              //     return Container();
-              //   },
-              // ),
-              SizedBox(
-                height: 42,
-                width: 200,
-                child: TextButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll<Color>(Colors.lightBlue)),
-                    onPressed: () async {
-                      FilePickerResult? result =
-                          await FilePicker.platform.pickFiles();
-
-                      if (result != null) {
-                        File file = File(result.files.single.path!);
-                        final String path =
-                            await supabase.storage.from('resumes').upload(
-                                  'user-${supabase.auth.currentUser?.id}/resume.pdf',
-                                  file,
-                                  fileOptions: const FileOptions(
-                                      cacheControl: '3600', upsert: false),
-                                );
-                      }
-                    },
-                    child: Text(
-                      "Upload resume!",
-                      style: TextStyle(color: Colors.white),
-                    )),
-              ),
-              SizedBox(height: 12.5),
-              SizedBox(
-                height: 42,
-                width: 200,
-                child: TextButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll<Color>(Colors.lightBlue)),
-                  onPressed: () async {
-                    await supabase.auth.signOut();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    "Sign out",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-              SizedBox(height: 12.5),
-              SizedBox(
-                height: 42,
-                width: 200,
-                child: TextButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll<Color>(Colors.lightBlue)),
-                    child: Text(
-                      "Test images",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () async {
-                      await getImagesForListing("");
-                    }),
-              )
-            ],
-          )
-        ],
-      ),
+													if (result != null) {
+														File file = File(result.files.single.path!);
+														final String path =
+																await supabase.storage.from('resumes').upload(
+																			'user-${supabase.auth.currentUser?.id}/resume.pdf',
+																			file,
+																			fileOptions: const FileOptions(
+																					cacheControl: '3600', upsert: false),
+																		);
+													}
+												},
+												child: Text(
+													"Upload resume!",
+													style: TextStyle(color: Colors.white),
+												)),
+									),
+									SizedBox(height: 12.5),
+									SizedBox(
+										height: 42,
+										width: 200,
+										child: TextButton(
+											style: ButtonStyle(
+													backgroundColor:
+															MaterialStatePropertyAll<Color>(Colors.lightBlue)),
+											onPressed: () async {
+												await supabase.auth.signOut();
+												Navigator.of(context).pop();
+											},
+											child: Text(
+												"Sign out",
+												style: TextStyle(color: Colors.white),
+											),
+										),
+									),
+									SizedBox(height: 12.5),
+								],
+							)
+						],
+					);
+				})
     );
   }
 }

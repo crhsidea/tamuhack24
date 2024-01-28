@@ -38,13 +38,13 @@ class OnboardingMenuTray extends StatelessWidget {
             // ),
             SizedBox(
               width: 200,
-              height: 42,
+              height: 60,
               child: TextButton(
-                  child: const Text("Sign up",
-                      style: const TextStyle(color: Colors.white)),
+                  child: const Text("Let's make one!",
+                      style: const TextStyle(color: Colors.white, fontSize: 18.0)),
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStatePropertyAll<Color>(Colors.lightBlue)),
+                          MaterialStatePropertyAll<Color>(Color(0xFF065A82))),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -55,31 +55,16 @@ class OnboardingMenuTray extends StatelessWidget {
             SizedBox(height: 10),
             SizedBox(
               width: 200,
-              height: 42,
+              height: 60,
               child: TextButton(
-                  child: const Text("Sign in",
-                      style: const TextStyle(color: Colors.white)),
+                  child: const Text("I've got one!",
+                      style: const TextStyle(color: Colors.white,fontSize: 18.0)),
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStatePropertyAll<Color>(Colors.lightBlue)),
+                          MaterialStatePropertyAll<Color>(Color(0xFF91A6FF))),
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => SigninPage()));
-                  }),
-            ),
-            SizedBox(height: 10),
-            SizedBox(
-              width: 200,
-              height: 42,
-              child: TextButton(
-                  child: const Text("Test button",
-                      style: const TextStyle(color: Colors.white)),
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll<Color>(Colors.lightBlue)),
-                  onPressed: () async {
-                    await addApplication(
-                        listing_id: "ccb2194d-b12d-4349-acc7-7933d3328971", answers: ["foo"]);
                   }),
             ),
           ],
