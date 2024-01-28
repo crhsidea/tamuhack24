@@ -40,8 +40,7 @@ class SignupPageState extends State<SignupPage> {
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email_outlined),
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 3, color: Color(0xFFBA2D0B))
-                ),
+                    borderSide: BorderSide(width: 3, color: Color(0xFFBA2D0B))),
                 hintText: 'Email',
               ),
             ),
