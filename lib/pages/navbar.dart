@@ -24,6 +24,7 @@ class _MainScreenNavState extends State<MainScreenNav> {
     _controller = PersistentTabController(initialIndex: 0);
 
     return Scaffold(
+			resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: PersistentTabView(
           context,

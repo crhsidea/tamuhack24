@@ -33,8 +33,7 @@ class _ApplicationsPageState extends State<ApplicationsPage> {
                     .map(
                       (e) => Container(color: e.accepted? Colors.green: Colors.red, 
                       child:ApplicationStatus(
-                        status: e.accepted,
-                        jobName: e.listing_id.toString(),
+												application: e
                       ),
 											))
                     .toList(),

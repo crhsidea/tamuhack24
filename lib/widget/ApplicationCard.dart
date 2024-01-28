@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flacktest/backend/application.dart';
 
 class ApplicationStatus extends StatelessWidget {
-  final bool status;
-  final String jobName;
+	final Application application;
   const ApplicationStatus(
-      {super.key, required this.status, required this.jobName});
+      {super.key, required this.application});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Column(
         children: [
-          Text("Accepted ${status.toString()}"),
-          Text("Job Name: $jobName")
+          Text("Accepted ${application.accepted.toString()}"),
         ],
       ),
     );

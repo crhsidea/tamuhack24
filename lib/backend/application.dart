@@ -11,7 +11,7 @@ class Application {
   final String user_id;
   List<String> answers;
   List<String> questions;
-  final String user_name;
+  String user_name;
   final DateTime created_at;
   final bool accepted;
 
@@ -116,6 +116,10 @@ Future<List<Application>> getApplicationsByListing(String uid) async {
     print(answers);
     a.questions = questions_s;
     a.answers = answers;
+		var username = await supabase.from("profiles")
+				.select("full_name")
+				.eq("id", user_id);
+		a.user_name = username[0]["full_name"];
     list_data.add(a);
   }
   return list_data;
