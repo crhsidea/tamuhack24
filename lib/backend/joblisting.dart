@@ -114,6 +114,14 @@ Future<List<Listing>> getListingsByUser(String? uid) async {
   return list_data;
 }
 
+Future<Listing> getListingById(String uid) async {
+  List<Map<String, dynamic>> data = await supabase
+      .from("joblistings")
+      .select('(id,user_id,created_on,title,content,location,hours,salary)')
+      .eq("id", uid);
+  List<Listing> list_data = data.map((d) => ListingFromJSON(d)).toList();
+  return list_data[0];
+}
 Future<List<Listing>> getAllListings() async {
   List<Map<String, dynamic>> data = await supabase
       .from("joblistings")
