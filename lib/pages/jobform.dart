@@ -22,9 +22,10 @@ class JobFormState extends State<JobForm> {
   final hoursController= TextEditingController();
   @override
   void dispose(){
+    super.dispose();
     titleController.dispose();
     DescriptionController.dispose();
-    hours
+    hoursController.dispose();
   }
   // ignore: non_constant_identifier_names
   bool title = false;
@@ -101,7 +102,9 @@ class JobFormState extends State<JobForm> {
             //   size: 14,
             //   color: (title && descript && hours)? Colors.green.shade600: Colors.red.shade300
             // )))
-          ])),
+          )]
+          )
+          ),
     ),);
   }
 }
