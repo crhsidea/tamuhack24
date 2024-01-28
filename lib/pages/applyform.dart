@@ -127,6 +127,9 @@ class _ApplyFormState extends State<ApplyForm> {
 												color: Colors.white,
 											),
 										)),
+								SizedBox(
+									height:30
+								),
               ],
 							)
             );
